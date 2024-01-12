@@ -152,14 +152,16 @@ const ClassDetails = () => {
                 >
                     View
                 </BlueButton>
-                <PurpleButton
+
+                {/* 12.1.24 */}
+                {/* <PurpleButton
                     variant="contained"
                     onClick={() =>
                         navigate("/Admin/students/student/attendance/" + row.id)
                     }
                 >
                     Attendance
-                </PurpleButton>
+                </PurpleButton> */}
             </>
         );
     };
@@ -196,7 +198,9 @@ const ClassDetails = () => {
                         </Typography>
 
                         <TableTemplate buttonHaver={StudentsButtonHaver} columns={studentColumns} rows={studentRows} />
-                        <SpeedDialTemplate actions={studentActions} />
+
+                        {/* 12.1.24 */}
+                        {/* <SpeedDialTemplate actions={studentActions} /> */}
                     </>
                 )}
             </>

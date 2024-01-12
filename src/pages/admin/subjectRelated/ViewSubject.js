@@ -58,20 +58,22 @@ const ViewSubject = () => {
   const StudentsAttendanceButtonHaver = ({ row }) => {
     return (
       <>
-        <BlueButton
+
+      {/* 12.1.24 */}
+        {/* <BlueButton
           variant="contained"
           onClick={() => navigate("/Admin/students/student/" + row.id)}
         >
           View
-        </BlueButton>
-        <PurpleButton
+        </BlueButton> */}
+        {/* <PurpleButton
           variant="contained"
           onClick={() =>
             navigate(`/Admin/subject/student/attendance/${row.id}/${subjectID}`)
           }
         >
           Take Attendance
-        </PurpleButton>
+        </PurpleButton> */}
       </>
     );
   };

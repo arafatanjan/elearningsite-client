@@ -23,7 +23,7 @@ export const usePublishResult = (resultData) => {
     (async () => {
         try {
             //  if(result !== []) throw new Error("Couldn't get Result");
-            await postServerData(`http://localhost:5000/result`, resultData, data => data)
+            await postServerData(`https://elearningsite-server.onrender.com/result`, resultData, data => data)
         } catch (error) {
             console.log(error)
         }

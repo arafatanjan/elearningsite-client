@@ -72,7 +72,7 @@ const ViewStdAttendance = () => {
                         <StyledTableRow>
                             <StyledTableCell>Subject</StyledTableCell>
                             <StyledTableCell>Present</StyledTableCell>
-                            <StyledTableCell>Total Sessions</StyledTableCell>
+                            <StyledTableCell>No. of Classes</StyledTableCell>
                             <StyledTableCell>Attendance Percentage</StyledTableCell>
                             <StyledTableCell align="center">Actions</StyledTableCell>
                         </StyledTableRow>
@@ -160,7 +160,8 @@ const ViewStdAttendance = () => {
                             {selectedSection === 'table' && renderTableSection()}
                             {selectedSection === 'chart' && renderChartSection()}
 
-                            <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+                            {/* 12.1.24 */}
+                            {/* <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
                                 <BottomNavigation value={selectedSection} onChange={handleSectionChange} showLabels>
                                     <BottomNavigationAction
                                         label="Table"
@@ -173,7 +174,7 @@ const ViewStdAttendance = () => {
                                         icon={selectedSection === 'chart' ? <InsertChartIcon /> : <InsertChartOutlinedIcon />}
                                     />
                                 </BottomNavigation>
-                            </Paper>
+                            </Paper> */}
                         </>
                         :
                         <>

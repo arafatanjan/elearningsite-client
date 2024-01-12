@@ -21,9 +21,14 @@ import Quiz from './Quiz/Quiz'
 import Result from "./Quiz/Result";
 import ResultTable from "./Quiz/ResultTable";
 import StudentComplain from './StudentComplain';
+import QuizAnalysis from './Anlysis/QuizAnalysis';
 import Logout from '../Logout'
 import AccountMenu from '../../components/AccountMenu';
 import { AppBar, Drawer } from '../../components/styles';
+import Tutorial from './Media/Tutorial';
+import QuizAnalysisSecond from './Anlysis/QuizAnalysisSecond';
+import QuizAnalysisFirst from './Anlysis/QuizAnalysisFirst';
+import Suggestion from './Suggestion/Suggestion';
 
 const StudentDashboard = () => {
     const [open, setOpen] = useState(true);
@@ -83,17 +88,21 @@ const StudentDashboard = () => {
                         <Route path="/Student/subjects" element={<StudentSubjects />} />
                         <Route path="/Student/attendance" element={<ViewStdAttendance />} />
                         <Route path="/Student/quiz" element={<Front />} />
-                        <Route path="/Student/quiz/test" element={<Quiz/>} />
-                        <Route path='/Student/quiz/test/result' element={<Result></Result>}>
+                        <Route path="/Student/tutorial" element={<Tutorial />} />
+                        <Route path="/Student/quiz/:semester/:year/:course/:category" element={<Quiz/>} />
+                        <Route path="/Student/quiz/test/result/:semester/:year/:course/:category" element={<Result></Result>}>
           </Route>
           <Route path='/Student/quiz/test/resulttable' element={<ResultTable></ResultTable>}>
           </Route>
-                        <Route path="/Student/complain" element={<StudentComplain />} />
+                        <Route path="/Student/complains" element={<StudentComplain />} />
+                        <Route path="/Student/analysis" element={<QuizAnalysisFirst />} />
+                        <Route path="/Student/suggestion" element={<Suggestion />} />
 
                         <Route path="/logout" element={<Logout />} />
                     </Routes>
-                </Box>
-            </Box>
+                    
+                </Box>              
+            </Box>           
         </>
     );
 }

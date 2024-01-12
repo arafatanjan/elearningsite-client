@@ -29,11 +29,23 @@ const TeacherSideBar = () => {
                     </ListItemIcon>
                     <ListItemText primary={`Class ${sclassName.sclassName}`} />
                 </ListItemButton>
+                <ListItemButton component={Link} to="/Teacher/quizform">
+                    <ListItemIcon>
+                        <AnnouncementOutlinedIcon color={location.pathname.startsWith("/Teacher/quizform") ? 'primary' : 'inherit'} />
+                    </ListItemIcon>
+                    <ListItemText primary="Quiz" />
+                </ListItemButton>
+                <ListItemButton component={Link} to="/Teacher/tutorial">
+                    <ListItemIcon>
+                        <ClassOutlinedIcon color={location.pathname.startsWith("/Teacher/tutorial") ? 'primary' : 'inherit'} />
+                    </ListItemIcon>
+                    <ListItemText primary="Tutorial" />
+                </ListItemButton>
                 <ListItemButton component={Link} to="/Teacher/complain">
                     <ListItemIcon>
                         <AnnouncementOutlinedIcon color={location.pathname.startsWith("/Teacher/complain") ? 'primary' : 'inherit'} />
                     </ListItemIcon>
-                    <ListItemText primary="Complain" />
+                    <ListItemText primary="Class" />
                 </ListItemButton>
             </React.Fragment>
             <Divider sx={{ my: 1 }} />

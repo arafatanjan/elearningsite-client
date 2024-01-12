@@ -1,44 +1,67 @@
 
-import React, { useRef } from 'react'
+import React, { useEffect, useState, useRef } from 'react';
 // import { useDispatch } from 'react-redux'
  import { Link } from 'react-router-dom'
-// import { setUserId } from '../redux/result_reducer'
-// import '../styles/Main.css'
  import "./Front.css"
-
+import QuizCard from './QuizCard';
+import axios from 'axios';
 
 const Front = () => {
     const inputRef = useRef(null)
-    // const dispatch = useDispatch()
+    const [quizes, setQuizes] = useState([])
+    
 
+    // useEffect(() => {
+    //     fetch('https://elearningsite-server.onrender.com/questions')
 
-    // function startQuiz(){
-    //     // if(inputRef.current?.value){
-    //     //     dispatch(setUserId(inputRef.current?.value))
-    //     // }
+    //         // fetch('services.json')
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             setQuizes(data);
+                
+    //         })
+    // }, []);
+    
+    useEffect(() => {
+        // Define an async function to use with useEffect
+        const fetchData = async () => {
+            try {
+                // Make a GET request using Axios
+                const response = await axios.get('https://elearningsite-server.onrender.com/questions');
+                
+                // Extract the data from the response
+                const data = response.data;
+    
+                // Update the state with the fetched data
+                setQuizes(data);
+                //  console.log(data);
+            } catch (error) {
+                // Handle errors
+                console.error('Error fetching data:', error);
+            }
+        };
+    
+        // Call the async function
+        fetchData();
+    }, []);
+
 
     return (
-        <div className='container'>
-        <h1>Quiz Application</h1>
-
-        <ol>
-            <li>You will be asked 10 questions one after another.</li>
-            <li>10 points is awarded for the correct answer.</li>
-            <li>Each question has three options. You can choose only one options.</li>
-            <li>You can review and change answers before the quiz finish.</li>
-            <li>The result will be declared at the end of the quiz.</li>
-        </ol>
-
-         <form id="form">
-            <input ref={inputRef} className="userid" type="text" placeholder='Username*' />
-        </form>
-
-          <div className='start'>
-             <Link className='btn' to={'/Student/quiz/test'} replace={true}>Start Quiz</Link> 
-        </div>  
-
+        <div>
+        <br />
+        
+        
+        <div className='service-container ' id="quizes">
+            {
+                quizes && quizes?.map((quiz, index) =>( <QuizCard
+                    key={quiz._id}
+                    quiz={quiz}>
+                </QuizCard>
+                )
+                )
+            }
+        </div>
     </div>
-
     );
      
     };

@@ -38,11 +38,29 @@ const StudentSideBar = () => {
                     </ListItemIcon>
                     <ListItemText primary="Quiz" />
                 </ListItemButton>
-                <ListItemButton component={Link} to="/Student/complain">
+                <ListItemButton component={Link} to="/Student/tutorial">
                     <ListItemIcon>
-                        <AnnouncementOutlinedIcon color={location.pathname.startsWith("/Student/complain") ? 'primary' : 'inherit'} />
+                        <ClassOutlinedIcon color={location.pathname.startsWith("/Student/tutorial") ? 'primary' : 'inherit'} />
                     </ListItemIcon>
-                    <ListItemText primary="Complain" />
+                    <ListItemText primary="Tutorial" />
+                </ListItemButton>
+                <ListItemButton component={Link} to="/Student/complains">
+                    <ListItemIcon>
+                        <AnnouncementOutlinedIcon color={location.pathname.startsWith("/Student/complains") ? 'primary' : 'inherit'} />
+                    </ListItemIcon>
+                    <ListItemText primary="Class" />
+                </ListItemButton>
+                <ListItemButton component={Link} to="/Student/analysis">
+                    <ListItemIcon>
+                        <AnnouncementOutlinedIcon color={location.pathname.startsWith("/Student/analysis") ? 'primary' : 'inherit'} />
+                    </ListItemIcon>
+                    <ListItemText primary="Analysis" />
+                </ListItemButton>
+                <ListItemButton component={Link} to="/Student/suggestion">
+                    <ListItemIcon>
+                        <AnnouncementOutlinedIcon color={location.pathname.startsWith("/Student/analysis") ? 'primary' : 'inherit'} />
+                    </ListItemIcon>
+                    <ListItemText primary="Suggestion" />
                 </ListItemButton>
             </React.Fragment>
             <Divider sx={{ my: 1 }} />

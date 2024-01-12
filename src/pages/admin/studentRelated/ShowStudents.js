@@ -118,7 +118,9 @@ const ShowStudents = () => {
                     View
                 </BlueButton>
                 <React.Fragment>
-                    <ButtonGroup variant="contained" ref={anchorRef} aria-label="split button">
+
+                    {/* 12.1.24 */}
+                    {/* <ButtonGroup variant="contained" ref={anchorRef} aria-label="split button">
                         <Button onClick={handleClick}>{options[selectedIndex]}</Button>
                         <BlackButton
                             size="small"
@@ -130,7 +132,7 @@ const ShowStudents = () => {
                         >
                             {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
                         </BlackButton>
-                    </ButtonGroup>
+                    </ButtonGroup> */}
                     <Popper
                         sx={{
                             zIndex: 1,

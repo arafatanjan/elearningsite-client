@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import data from './Data';
+// import data from './Data';
  import "./Question.css";
-import { Radio, FormControlLabel,FormControl, FormLabel, RadioGroup, List, ListItem, ListItemText, Checkbox, Box, Typography, Paper, withStyles } from '@material-ui/core';
+// import { Radio, FormControlLabel,FormControl, FormLabel, RadioGroup, List, ListItem, ListItemText, Checkbox, Box, Typography, Paper, withStyles } from '@mui/material';
 
 /** Custom Hook */
 import { useFetchQestion } from '../Quiz/Hooks/FetchQuestion';
@@ -41,41 +41,36 @@ const Question = ({ onChecked }) => {
     if(serverError) return <h3>{serverError || "Unknown Error"}</h3>
 
     // Define custom styles for FormControlLabel
-    const CustomRadio = withStyles({
-        root: {
-          // Customize the radio button itself here
-        },
-      })(Radio);
+    // const CustomRadio = withStyles({
+    //     root: {
+    //       // Customize the radio button itself here
+    //     },
+    //   })(Radio);
       
 
     return (
-      <Paper elevation={3} style={{ padding: '16px', marginBottom: '16px'}}>
-      <Typography variant="h5">{question?.question}</Typography>
-      <List className='question'>
-        {question?.options.map((q, i) => (
-          <ListItem key={i}>
-            <Radio
-              checked={result[trace] ==i}
-              onChange={() => onSelect(i)}
-              value={checked}
-              name="options"
-              id={`q${i}-option`}
-              color="primary" // Customize the radio button color
-            />
-             {/* <label className='text-primary' htmlFor={`q${i}-option`}>{q}</label> */}
-             {/* <span className={`check ${result[trace] === i ? 'checked' : ''}`}></span>  */}
-            <Typography
-              className="custom-label"
-              variant="body1"
-              style={{ fontSize: '16px', color: 'blue' }}
-              
-            >
-              {q}
-            </Typography>
-          </ListItem>
-        ))}
-      </List>
-    </Paper>
+      <div className='question'>
+      <h2 className='text-light'>{question?.question}</h2>
+
+      <ul key={question?.id}>
+          {
+              question?.options.map((q, i) => (
+                  <li key={i}>
+                      <input 
+                          type="radio"
+                          value={false}
+                          name="options"
+                          id={`q${i}-option`}
+                          onChange={() => onSelect(i)}
+                      />
+
+                      <label className='text-primary' htmlFor={`q${i}-option`}>{q}</label>
+                      <div className={`check ${result[trace] == i ? 'checked' : ''}`}></div>
+                  </li>
+              ))
+          }
+      </ul>
+  </div>
 
 
     );

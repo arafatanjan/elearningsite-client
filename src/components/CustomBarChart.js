@@ -130,6 +130,7 @@ const TooltipMain = styled.h2`
 
 const CustomTooltipContent = ({ active, payload, dataKey }) => {
     if (active && payload && payload.length) {
+        //console.log(payload);
         const { subject, attendancePercentage, totalClasses, attendedClasses, marksObtained, subName } = payload[0].payload;
 
         return (

@@ -10,7 +10,8 @@ export const getAllComplains = (id, address) => async (dispatch) => {
     dispatch(getRequest());
 
     try {
-        const result = await axios.get(`http://localhost:5000/${address}List/${id}`);
+        const result = await axios.get(`https://elearningsite-server.onrender.com/${address}List/${id}`);
+        // const result = await axios.get(`https://elearningsite-server.onrender.com/${address}List/${id}`);
         if (result.data.message) {
             dispatch(getFailed(result.data.message));
         } else {
@@ -18,5 +19,6 @@ export const getAllComplains = (id, address) => async (dispatch) => {
         }
     } catch (error) {
         dispatch(getError(error));
+        
     }
 }

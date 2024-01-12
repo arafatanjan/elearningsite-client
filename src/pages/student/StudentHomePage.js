@@ -10,6 +10,8 @@ import CountUp from 'react-countup';
 import Subject from "../../assets/subjects.svg";
 import Assignment from "../../assets/assignment.svg";
 import { getSubjectList } from '../../redux/sclassRelated/sclassHandle';
+import Box from '@mui/material/Box';
+import AllRights from '../../components/AllRights';
 
 const StudentHomePage = () => {
     const dispatch = useDispatch();
@@ -79,7 +81,9 @@ const StudentHomePage = () => {
                                                 {
                                                     subjectAttendance && Array.isArray(subjectAttendance) && subjectAttendance.length > 0 ? (
                                                         <>
-                                                            <CustomPieChart data={chartData} />
+
+                                                        {/* 12.1.24 */}
+                                                            {/* <CustomPieChart data={chartData} /> */}
                                                         </>
                                                     )
                                                         :
@@ -97,8 +101,12 @@ const StudentHomePage = () => {
                         </Paper>
                     </Grid>
                 </Grid>
+                
             </Container>
+            <AllRights/>
+            
         </>
+        
     )
 }
 

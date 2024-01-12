@@ -8,10 +8,11 @@ import TableTemplate from '../../../components/TableTemplate';
 
 const SeeComplains = () => {
 
-  const label = { inputProps: { 'aria-label': 'Checkbox demo' } };  const dispatch = useDispatch();
+  const label = { inputProps: { 'aria-label': 'Checkbox demo' } };  
+  const dispatch = useDispatch();
   const { complainsList, loading, error, response } = useSelector((state) => state.complain);
   const { currentUser } = useSelector(state => state.user)
-
+  console.log(currentUser);
   useEffect(() => {
     dispatch(getAllComplains(currentUser._id, "Complain"));
   }, [currentUser._id, dispatch]);
@@ -29,8 +30,9 @@ const SeeComplains = () => {
   const complainRows = complainsList && complainsList.length > 0 && complainsList.map((complain) => {
     const date = new Date(complain.date);
     const dateString = date.toString() !== "Invalid Date" ? date.toISOString().substring(0, 10) : "Invalid Date";
+    //console.log(complain);
     return {
-      user: complain.user.name,
+      user: complain?.user?.name,
       complaint: complain.complaint,
       date: dateString,
       id: complain._id,

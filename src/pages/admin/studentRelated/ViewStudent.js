@@ -153,7 +153,7 @@ const ViewStudent = () => {
                             <StyledTableRow>
                                 <StyledTableCell>Subject</StyledTableCell>
                                 <StyledTableCell>Present</StyledTableCell>
-                                <StyledTableCell>Total Sessions</StyledTableCell>
+                                <StyledTableCell>No. of Classes</StyledTableCell>
                                 <StyledTableCell>Attendance Percentage</StyledTableCell>
                                 <StyledTableCell align="center">Actions</StyledTableCell>
                             </StyledTableRow>
@@ -177,7 +177,7 @@ const ViewStudent = () => {
                                             </IconButton>
                                             <Button variant="contained" sx={styles.attendanceButton}
                                                 onClick={() => navigate(`/Admin/subject/student/attendance/${studentID}/${subId}`)}>
-                                                Change
+                                                Modify
                                             </Button>
                                         </StyledTableCell>
                                     </StyledTableRow>
@@ -243,8 +243,9 @@ const ViewStudent = () => {
                     <>
                         {selectedSection === 'table' && renderTableSection()}
                         {selectedSection === 'chart' && renderChartSection()}
-
-                        <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+                         
+                        {/* 12.1.23 */}
+                        {/* <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
                             <BottomNavigation value={selectedSection} onChange={handleSectionChange} showLabels>
                                 <BottomNavigationAction
                                     label="Table"
@@ -257,7 +258,7 @@ const ViewStudent = () => {
                                     icon={selectedSection === 'chart' ? <InsertChartIcon /> : <InsertChartOutlinedIcon />}
                                 />
                             </BottomNavigation>
-                        </Paper>
+                        </Paper> */}
                     </>
                     :
                     <Button variant="contained" sx={styles.styledButton} onClick={() => navigate("/Admin/students/student/attendance/" + studentID)}>
@@ -315,7 +316,8 @@ const ViewStudent = () => {
                         {selectedSection === 'table' && renderTableSection()}
                         {selectedSection === 'chart' && renderChartSection()}
 
-                        <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+                        {/* 12.1.23 */}
+                        {/* <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
                             <BottomNavigation value={selectedSection} onChange={handleSectionChange} showLabels>
                                 <BottomNavigationAction
                                     label="Table"
@@ -328,7 +330,7 @@ const ViewStudent = () => {
                                     icon={selectedSection === 'chart' ? <InsertChartIcon /> : <InsertChartOutlinedIcon />}
                                 />
                             </BottomNavigation>
-                        </Paper>
+                        </Paper> */}
                     </>
                     :
                     <Button variant="contained" sx={styles.styledButton} onClick={() => navigate("/Admin/students/student/marks/" + studentID)}>
@@ -349,11 +351,12 @@ const ViewStudent = () => {
                 Class: {sclassName.sclassName}
                 <br />
                 School: {studentSchool.schoolName}
-                {
+                
+                {/* { // 12.1.23
                     subjectAttendance && Array.isArray(subjectAttendance) && subjectAttendance.length > 0 && (
                         <CustomPieChart data={chartData} />
                     )
-                }
+                } */}
                 <Button variant="contained" sx={styles.styledButton} onClick={deleteHandler}>
                     Delete
                 </Button>

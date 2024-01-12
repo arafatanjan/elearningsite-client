@@ -91,7 +91,7 @@ const TeacherViewStudent = () => {
                                                 <StyledTableRow>
                                                     <StyledTableCell>Subject</StyledTableCell>
                                                     <StyledTableCell>Present</StyledTableCell>
-                                                    <StyledTableCell>Total Sessions</StyledTableCell>
+                                                    <StyledTableCell>No. of Classes</StyledTableCell>
                                                     <StyledTableCell>Attendance Percentage</StyledTableCell>
                                                     <StyledTableCell align="center">Actions</StyledTableCell>
                                                 </StyledTableRow>
@@ -154,11 +154,13 @@ const TeacherViewStudent = () => {
                                 Overall Attendance Percentage: {overallAttendancePercentage.toFixed(2)}%
                             </div>
 
-                            <CustomPieChart data={chartData} />
+                         {/* 12.1.24 */}
+                            {/* <CustomPieChart data={chartData} /> */}
                         </>
                     }
                     <br /><br />
-                    <Button
+                    {/* 12.1.24 */}
+                    {/* <Button
                         variant="contained"
                         onClick={() =>
                             navigate(
@@ -167,7 +169,7 @@ const TeacherViewStudent = () => {
                         }
                     >
                         Add Attendance
-                    </Button>
+                    </Button> */}
                     <br /><br /><br />
                     <h3>Subject Marks:</h3>
 
@@ -199,13 +201,15 @@ const TeacherViewStudent = () => {
                             })}
                         </>
                     }
-                    <PurpleButton variant="contained"
+
+                    {/* 12.1.24 */}
+                    {/* <PurpleButton variant="contained"
                         onClick={() =>
                             navigate(
                                 `/Teacher/class/student/marks/${studentID}/${teachSubjectID}`
                             )}>
                         Add Marks
-                    </PurpleButton>
+                    </PurpleButton> */}
                     <br /><br /><br />
                 </div>
             }
