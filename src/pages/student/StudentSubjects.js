@@ -114,7 +114,8 @@ const StudentSubjects = () => {
                             {selectedSection === 'table' && renderTableSection()}
                             {selectedSection === 'chart' && renderChartSection()}
 
-                            <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+                             {/* 12.1.24 */}
+                            {/* <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
                                 <BottomNavigation value={selectedSection} onChange={handleSectionChange} showLabels>
                                     <BottomNavigationAction
                                         label="Table"
@@ -127,7 +128,7 @@ const StudentSubjects = () => {
                                         icon={selectedSection === 'chart' ? <InsertChartIcon /> : <InsertChartOutlinedIcon />}
                                     />
                                 </BottomNavigation>
-                            </Paper>
+                            </Paper> */}
                         </>)
                         :
                         (<>

@@ -38,6 +38,25 @@ export const updateStudentFields = (id, fields, address) => async (dispatch) => 
         dispatch(getError(error));
     }
 }
+export const updateStudentProgressFields = (id, fields, address) => async (dispatch) => {
+    dispatch(getRequest());
+
+    try {
+        const result = await axios.put(`https://elearningsite-server.onrender.com/${address}/${id}`, fields, {
+            headers: { 'Content-Type': 'application/json' },
+        });
+        if (result.data.message) {
+            dispatch(getFailed(result.data.message));
+            console.log(result.data.message)
+        } else {
+            dispatch(stuffDone());
+            console.log("success")
+        }
+    } catch (error) {
+        dispatch(getError(error));
+        console.log("fail")
+    }
+}
 
 export const removeStuff = (id, address) => async (dispatch) => {
     dispatch(getRequest());

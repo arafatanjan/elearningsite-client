@@ -3,6 +3,8 @@ import QuizAnalysisSecond from './QuizAnalysisSecond';
 import QuizAnalysisThird from './QuizAnalysisThird';
 import QuizAnalysisFifth from './QuizAnalysisFifth';
 import QuizAnalysisSixth from './QuizAnalysisSixth';
+import QuizAnalysisSeventh from './QuizAnalysisSeventh';
+import QuizAnalysisEighth from './QuizAnalysisEighth';
 
 const QuizAnalysisFirst = () => {
     return (
@@ -13,6 +15,12 @@ const QuizAnalysisFirst = () => {
                <QuizAnalysisThird/>   
              {/* <QuizAnalysisFifth/> */}
              <QuizAnalysisSixth/>
+             <br/>
+            <br/>
+             <QuizAnalysisSeventh/>
+             <br/>
+            <br/>
+             <QuizAnalysisEighth/>
              
         </div>
     );

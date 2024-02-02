@@ -12,8 +12,10 @@ const TeacherClassDetails = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
     const { sclassStudents, loading, error, getresponse } = useSelector((state) => state.sclass);
+    //console.log(sclassStudents);
 
     const { currentUser } = useSelector((state) => state.user);
+    //console.log(currentUser);
     const classID = currentUser.teachSclass?._id
     const subjectID = currentUser.teachSubject?._id
 
@@ -39,7 +41,7 @@ const TeacherClassDetails = () => {
     })
 
     const StudentsButtonHaver = ({ row }) => {
-        const options = ['Take Attendance', 'Provide Marks'];
+        const options = ['Take Attendance', 'Semester Marks', 'Class Progress'];
 
         const [open, setOpen] = React.useState(false);
         const anchorRef = React.useRef(null);
@@ -49,17 +51,27 @@ const TeacherClassDetails = () => {
             console.info(`You clicked ${options[selectedIndex]}`);
             if (selectedIndex === 0) {
                 handleAttendance();
-            } else if (selectedIndex === 1) {
+            } 
+            if (selectedIndex === 1) {
                 handleMarks();
+            }
+            else if (selectedIndex === 2) {
+                handleProgressMarks();
             }
         };
 
         const handleAttendance = () => {
             navigate(`/Teacher/class/student/attendance/${row.id}/${subjectID}`)
         }
+        
         const handleMarks = () => {
             navigate(`/Teacher/class/student/marks/${row.id}/${subjectID}`)
         };
+
+        const handleProgressMarks = () => {
+            navigate(`/Teacher/class/student/progress/${row.id}/${subjectID}`)
+        };
+        //console.log({row})
 
         const handleMenuItemClick = (event, index) => {
             setSelectedIndex(index);
@@ -125,7 +137,7 @@ const TeacherClassDetails = () => {
                                             {options.map((option, index) => (
                                                 <MenuItem
                                                     key={option}
-                                                    disabled={index === 2}
+                                                    disabled={index === 3}
                                                     selected={index === selectedIndex}
                                                     onClick={(event) => handleMenuItemClick(event, index)}
                                                 >

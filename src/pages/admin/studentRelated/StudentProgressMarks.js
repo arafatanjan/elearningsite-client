@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getUserDetails } from '../../../redux/userRelated/userHandle';
 import { getSubjectList } from '../../../redux/sclassRelated/sclassHandle';
-import { updateStudentFields } from '../../../redux/studentRelated/studentHandle';
+//import { updateStudentFields } from '../../../redux/studentRelated/studentHandle';
+import { updateStudentProgressFields } from '../../../redux/studentRelated/studentHandle';
 
 import Popup from '../../../components/Popup';
 import { BlueButton } from '../../../components/buttonStyles';
@@ -14,7 +15,7 @@ import {
     TextField, CircularProgress, FormControl
 } from '@mui/material';
 
-const StudentExamMarks = ({ situation }) => {
+const StudentProgressMarks = ({ situation }) => {
     const dispatch = useDispatch();
     const { currentUser, userDetails, loading } = useSelector((state) => state.user);
     const { subjectsList } = useSelector((state) => state.sclass);
@@ -24,12 +25,12 @@ const StudentExamMarks = ({ situation }) => {
     const [studentID, setStudentID] = useState("");
     const [subjectName, setSubjectName] = useState("");
     const [chosenSubName, setChosenSubName] = useState("");
-    const [marksObtained, setMarksObtained] = useState("");
+    const [marksProgress, setMarksProgress] = useState("");
 
     const [showPopup, setShowPopup] = useState(false);
     const [message, setMessage] = useState("");
     const [loader, setLoader] = useState(false)
-    console.log(userDetails.sclassName._id);
+    //console.log(userDetails);
 
     useEffect(() => {
         if (situation === "Student") {
@@ -46,8 +47,11 @@ const StudentExamMarks = ({ situation }) => {
     }, [situation]);
 
     useEffect(() => {
-        if (userDetails && userDetails.sclassName && situation === "Student") {
-            dispatch(getSubjectList(userDetails.sclassName._id, "ClassSubjects"));
+        if (!userDetails) {
+            setLoader(true);
+        }
+        if (userDetails && userDetails?.sclassName && situation === "Student") {
+            dispatch(getSubjectList(userDetails?.sclassName._id, "ClassSubjects"));
         }
     }, [dispatch, userDetails]);
 
@@ -59,12 +63,13 @@ const StudentExamMarks = ({ situation }) => {
         setChosenSubName(selectedSubject._id);
     }
 
-    const fields = { subName: chosenSubName, marksObtained }
+    const fields = { subName: chosenSubName, marksProgress }
 
     const submitHandler = (event) => {
         event.preventDefault()
         setLoader(true)
-        dispatch(updateStudentFields(studentID, fields, "UpdateExamResult"))
+        dispatch(updateStudentProgressFields(studentID, fields, "updateProgessResult"));
+        console.log(fields)
     }
 
     useEffect(() => {
@@ -85,6 +90,7 @@ const StudentExamMarks = ({ situation }) => {
         }
     }, [response, statestatus, error])
 
+    
     return (
         <>
             {loading
@@ -111,11 +117,14 @@ const StudentExamMarks = ({ situation }) => {
                             }}
                         >
                             <Stack spacing={1} sx={{ mb: 3 }}>
-                                <Typography variant="h4">
+                                <Typography variant="h5" fontWeight="bold">
+                                    Class Progress Marks
+                                </Typography>
+                                <Typography variant="h5">
                                     Student Name: {userDetails.name}
                                 </Typography>
                                 {currentUser.teachSubject &&
-                                    <Typography variant="h4">
+                                    <Typography variant="h5">
                                         Subject Name: {currentUser.teachSubject?.subName}
                                     </Typography>
                                 }
@@ -126,7 +135,7 @@ const StudentExamMarks = ({ situation }) => {
                                         situation === "Student" &&
                                         <FormControl fullWidth>
                                             <InputLabel id="demo-simple-select-label">
-                                                Select Subject
+                                                Select Subjectt
                                             </InputLabel>
                                             <Select
                                                 labelId="demo-simple-select-label"
@@ -151,8 +160,8 @@ const StudentExamMarks = ({ situation }) => {
                                     }
                                     <FormControl>
                                         <TextField type="number" label='Enter marks'
-                                            value={marksObtained} required
-                                            onChange={(e) => setMarksObtained(e.target.value)}
+                                            value={marksProgress} required
+                                            onChange={(e) => setMarksProgress(e.target.value)}
                                             InputLabelProps={{
                                                 shrink: true,
                                             }}
@@ -176,7 +185,7 @@ const StudentExamMarks = ({ situation }) => {
                 </>
             }
         </>
-    )
-}
+    );
+};
 
-export default StudentExamMarks
+export default StudentProgressMarks;

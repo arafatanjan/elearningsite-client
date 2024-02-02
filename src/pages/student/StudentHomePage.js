@@ -17,6 +17,7 @@ const StudentHomePage = () => {
     const dispatch = useDispatch();
 
     const { userDetails, currentUser, loading, response } = useSelector((state) => state.user);
+    //console.log(userDetails)
     const { subjectsList } = useSelector((state) => state.sclass);
 
     const [subjectAttendance, setSubjectAttendance] = useState([]);
@@ -62,7 +63,7 @@ const StudentHomePage = () => {
                             <Title>
                                 Total Assignments
                             </Title>
-                            <Data start={0} end={15} duration={4} />
+                            <Data start={0} end={0} duration={4} />
                         </StyledPaper>
                     </Grid>
                     <Grid item xs={12} md={4} lg={3}>

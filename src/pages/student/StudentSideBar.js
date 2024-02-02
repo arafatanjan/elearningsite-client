@@ -54,13 +54,13 @@ const StudentSideBar = () => {
                     <ListItemIcon>
                         <AnnouncementOutlinedIcon color={location.pathname.startsWith("/Student/analysis") ? 'primary' : 'inherit'} />
                     </ListItemIcon>
-                    <ListItemText primary="Analysis" />
+                    <ListItemText primary="Evaluation" />
                 </ListItemButton>
                 <ListItemButton component={Link} to="/Student/suggestion">
                     <ListItemIcon>
                         <AnnouncementOutlinedIcon color={location.pathname.startsWith("/Student/analysis") ? 'primary' : 'inherit'} />
                     </ListItemIcon>
-                    <ListItemText primary="Suggestion" />
+                    <ListItemText primary="Feedback" />
                 </ListItemButton>
             </React.Fragment>
             <Divider sx={{ my: 1 }} />

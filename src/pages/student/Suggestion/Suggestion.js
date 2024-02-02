@@ -1,11 +1,20 @@
-import React from 'react';
+
+import React from "react";
+import Chat from "./ChatBot/Chat";
+//import Footer from "./components/Footer.jsx";
+import "./ChatBot/css/App.css";
 
 const Suggestion = () => {
+    
+
     return (
-        <div>
-            <p>kkk</p>
-        </div>
+        <>
+      {/* <main>
+        <Chat />
+      </main> */}
+      {/* <Footer /> */}
+    </>
     );
-};
+}
 
 export default Suggestion;

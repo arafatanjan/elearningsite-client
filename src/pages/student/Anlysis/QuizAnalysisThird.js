@@ -15,7 +15,7 @@ const QuizAnalysisThird = ({ active, payload, dataKey }) => {
     const [results, setResults] = useState([]);
 
     if (active && payload && payload.length) {
-        console.log(payload);
+        //console.log(payload);
         const { subject, attendancePercentage, totalClasses, attendedClasses, marksObtained, subName } = payload[0].payload;
     }
 
@@ -44,13 +44,14 @@ const QuizAnalysisThird = ({ active, payload, dataKey }) => {
 
     Object.entries(attendanceBySubject).map(([subName, { present, allData, subId, sessions }], index) => {
         const subjectAttendancePercentage = calculateSubjectAttendancePercentage(present, sessions);
-        console.log(subjectAttendancePercentage);})
+        //console.log(subjectAttendancePercentage);
+      })
 
-    console.log(attendanceBySubject);
-    console.log(overallAttendancePercentage);
+    //console.log(attendanceBySubject);
+    //console.log(overallAttendancePercentage);
     //console.log(subjectAttendancePercentage);
     //console.log(attendancePercentage);
-    console.log(currentUser.school._id) 
+    //console.log(currentUser.school._id) 
 
     useEffect(() => {
         getAllResults();
@@ -92,7 +93,7 @@ const QuizAnalysisThird = ({ active, payload, dataKey }) => {
 
   // Convert Map values to an array
   const groupedArrays = Array.from(groupedStudents.values());
-  console.log(groupedArrays);
+  //console.log(groupedArrays);
   //console.log(userDetails);
 
   // Function to count attendance status for different subjects
