@@ -277,8 +277,10 @@ const ViewStudent = () => {
                     <Table>
                         <TableHead>
                             <StyledTableRow>
+                                {/* 9.2.24 */}
                                 <StyledTableCell>Subject</StyledTableCell>
-                                <StyledTableCell>Marks</StyledTableCell>
+                                <StyledTableCell>Subject Marks</StyledTableCell>
+                                <StyledTableCell>Class Progress Marks</StyledTableCell>
                             </StyledTableRow>
                         </TableHead>
                         <TableBody>

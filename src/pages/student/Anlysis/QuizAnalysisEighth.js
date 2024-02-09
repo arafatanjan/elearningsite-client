@@ -13,6 +13,8 @@ const QuizAnalysisEighth = () => {
         
       }, []);
 
+      
+
       //https://elearningsite-server.onrender.com
     
       const getAllResults = () => {
@@ -38,6 +40,11 @@ const QuizAnalysisEighth = () => {
           percentage: percentage,
         };
       });
+
+      //const nam = results.map(student => student.name);
+        //const a= nam.includes(currentUser.name) ? currentUser.name : '';
+        const a=  currentUser.name;
+        console.log(a);
     
       // Calculate average and highest percentage
       const averagePercentage = percentageData.reduce((sum, student) => sum + student.percentage, 0) / percentageData.length;
@@ -45,7 +52,7 @@ const QuizAnalysisEighth = () => {
     
       // Prepare data for the chart
       const chartData = [
-        { label: 'Student', percentage: percentageData[0]?.percentage || 0 },
+        { label: `${a}`, percentage: percentageData[0]?.percentage || 0 },
         { label: 'Average', percentage: averagePercentage },
         { label: 'Highest', percentage: highestPercentage },
       ];
@@ -53,7 +60,7 @@ const QuizAnalysisEighth = () => {
     return (
         <>
         <h2>Video Watches</h2>
-        <ResponsiveContainer width="20%" height={300}>
+        <ResponsiveContainer width="40%" height={300}>
       <BarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="label" />
