@@ -17,7 +17,7 @@ useEffect(() => {
 }, [currentUser._id]);
 
      useEffect(() => {
-        getServerData(`http://localhost:5000/result`, (res) => {
+        getServerData(`https://elearningsite-server.onrender.com/result`, (res) => {
             setData(res)
          })
         }, [])

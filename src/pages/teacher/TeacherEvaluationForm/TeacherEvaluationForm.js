@@ -43,7 +43,7 @@ const TeacherEvaluationForm  = ({ situation }) => {
 
     const getAllStudentdata = () => {
         axios
-          .get(`http://localhost:5000/teacher/student/getAllStudent`)
+          .get(`https://elearningsite-server.onrender.com/teacher/student/getAllStudent`)
           .then((result) => {
             setResults(result.data);
           })
