@@ -1,15 +1,21 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { TextField, Button, Typography, Container, Box } from '@mui/material';
 
 const MyForm = () => {
-  const { semester, year, course, category } = useParams();
+   const { category } = useParams();
+
+   //??
   const { register, handleSubmit } = useForm();
   let navigate = useNavigate();
+  const { currentUser, userDetails, loading } = useSelector((state) => state.user);
+  const course= currentUser.teachSubject; 
+  console.log(course.id);
 
   const onSubmit = (data) => {
-    const url = `/Teacher/${data.semester}/${data.year}/${data.course}/${data.category}`;
+    const url = `/Teacher/${course.id}/${data.category}`;
     navigate(url);
   };
 
@@ -19,9 +25,7 @@ const MyForm = () => {
         Quiz Form
       </Typography>
       <Box sx={{ '& > :not(style)': { marginBottom: 2 } }}>
-        <TextField label="Semester" {...register('semester')} defaultValue={semester} fullWidth />
-        <TextField label="Year" {...register('year')} defaultValue={year} fullWidth />
-        <TextField label="Course" {...register('course')} defaultValue={course} fullWidth />
+        <TextField label="Course" {...register('course')} defaultValue={course.subName} fullWidth disabled/>
         <TextField label="Category" {...register('category')} defaultValue={category} fullWidth />
         <Button type="submit" variant="contained" color="primary" fullWidth onClick={handleSubmit(onSubmit)}>
           Submit

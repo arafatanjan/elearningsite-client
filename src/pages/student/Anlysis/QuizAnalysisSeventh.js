@@ -3,13 +3,16 @@ import axios from "axios";
 import CustomBarChart from '../../../components/CustomBarChart'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useDispatch, useSelector } from 'react-redux';
-
-
+import { getAllSubjectDetails } from '../../../redux/sclassRelated/sclassHandle';
+import './QuizAnalysis.css';
 
 const QuizAnalysisSixth = () => {
-
+  const dispatch = useDispatch();
     const [results, setResults] = useState([]);
     const { userDetails, currentUser, loading, response, error } = useSelector((state) => state.user);
+    const { subjectDetails, subjectsList } = useSelector((state) => state.sclass);
+    const [subjectID, setsubjectID] = useState();
+    const [subjectNames, setSubjectNames] = useState([]);
 
     useEffect(() => {
         getAllResults();
@@ -19,7 +22,7 @@ const QuizAnalysisSixth = () => {
     
       const getAllResults = () => {
         axios
-          .get(`https://elearningsite-server.onrender.com/Students/${currentUser.school._id}`)
+          .get(`http://localhost:5000/Students/${currentUser.school._id}`)
           .then((result) => {
             setResults(result.data);
           })
@@ -107,19 +110,53 @@ const QuizAnalysisSixth = () => {
             };
         })
 
+        useEffect(() => {
+          const fetchSubjectNames = async () => {
+              const subjectID = currentUser.school._id;
+              try {
+                await dispatch(getAllSubjectDetails(subjectID, 'AllSubjects'));
+              } catch (error) {
+                console.error(`Error fetching subject details for ${subjectID}:`, error);
+                // Handle error if needed
+              }
+          };
+        
+          // Call fetchSubjectNames only when chartData or dispatch changes
+          if (chartData.length > 0) {
+            fetchSubjectNames();
+          }
+        }, []);
+        console.log(subjectsList)
+
+        // Map over chartData and update subject with subName based on _id match
+const updatedChartsData = chartData.map(data => {
+  const matchingSubject = subjectsList.find(subject => subject._id === data.subject);
+
+  if (matchingSubject) {
+    return {
+      ...data,
+      subject: matchingSubject.subName // Replace subject ID with subName
+    };
+  } else {
+    return data; // No match found, keep original data
+  }
+});
+
+console.log(updatedChartsData);
+
     return (
         <div>
-            <h2>Class Progress Marks</h2>
-        <ResponsiveContainer width="50%" height={200}>
-      <BarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+            <h2 className="video-watches-title">Class Progress Marks</h2>
+        <ResponsiveContainer width="50%" height={250}>
+      <BarChart data={updatedChartsData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="subject" />
-        <YAxis domain={[0, 100]}/>
+        <YAxis domain={[0, 30]}/>
         <Tooltip />
         <Legend />
-        <Bar dataKey="firstStudentMarks" fill="#8884d8" name={`${a}`}/>
-        <Bar dataKey="highestMarks" fill="#82ca9d" name="Highest" />
-        <Bar dataKey="averageMarks" fill="#ffc658" name="Average" />
+        <Bar dataKey="firstStudentMarks" fill="#8884d8" name={`${a}`} barSize={40}/>
+        <Bar dataKey="highestMarks" fill="#82ca9d" name="Highest" barSize={40}/>
+        <Bar dataKey="averageMarks" fill="#ffc658" name="Average" barSize={40}/>
       </BarChart>
     </ResponsiveContainer>
     </div>

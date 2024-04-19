@@ -117,14 +117,14 @@ const StudentProgressMarks = ({ situation }) => {
                             }}
                         >
                             <Stack spacing={1} sx={{ mb: 3 }}>
-                                <Typography variant="h5" fontWeight="bold">
+                                <Typography variant="h6" fontWeight="bold">
                                     Class Progress Marks
                                 </Typography>
-                                <Typography variant="h5">
+                                <Typography variant="h6">
                                     Student Name: {userDetails.name}
                                 </Typography>
                                 {currentUser.teachSubject &&
-                                    <Typography variant="h5">
+                                    <Typography variant="h6">
                                         Subject Name: {currentUser.teachSubject?.subName}
                                     </Typography>
                                 }

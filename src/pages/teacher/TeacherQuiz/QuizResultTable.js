@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import { getServerData } from './Helper'
+import { getServerData } from '../../student/Quiz/Helper'
 
-const ResultTable = () => {
-
+const QuizResultTable = () => {
     const [data, setData] = useState([])
 
-     useEffect(() => {
-        getServerData(`http://localhost:5000/result`, (res) => {
-            setData(res)
-         })
-        }, [])
+    useEffect(() => {
+       getServerData(`http://localhost:5000/result`, (res) => {
+           setData(res)
+        })
+    }, [])
+    console.log(data)
 
     return (
-        <div>
+         <div>
             <table>
                 <thead className='table-header'>
                     <tr className='table-row'>
@@ -38,7 +38,7 @@ const ResultTable = () => {
                 </tbody>
             </table>
         </div>
-      )
-    };
+    );
+};
 
-export default ResultTable;
+export default QuizResultTable;

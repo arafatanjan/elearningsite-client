@@ -3,146 +3,20 @@ import axios from "axios";
 import CustomBarChart from '../../../components/CustomBarChart'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useDispatch, useSelector } from 'react-redux';
-
-// const Studentdetails= 
-// [
-//   {
-//     "_id": "653566902d54c8f8058ab3e9",
-//     "name": "arafat",
-//     "rollNum": 2,
-//     "sclassName": {
-//       "_id": "653566192d54c8f8058ab3be",
-//       "sclassName": "class 8"
-//     },
-//     "school": "6535658d2d54c8f8058ab3a8",
-//     "role": "Student",
-//     "attendance": [
-//       {
-//         "date": "2023-10-23T00:00:00.000Z",
-//         "status": "Present",
-//         "subName": "653566402d54c8f8058ab3ca",
-//         "_id": "653567102d54c8f8058ab420"
-//       },
-//       {
-//         "date": "2023-10-25T00:00:00.000Z",
-//         "status": "Absent",
-//         "subName": "653566402d54c8f8058ab3ca",
-//         "_id": "653807059fdac16dc54f38f5"
-//       },
-//       {
-//         "date": "2023-12-12T00:00:00.000Z",
-//         "status": "Present",
-//         "subName": "6535687a2d54c8f8058ab4e4",
-//         "_id": "6588fe59fb8d335f6c0de6fb"
-//       },
-//       {
-//         "date": "2023-12-14T00:00:00.000Z",
-//         "status": "Absent",
-//         "subName": "6535687a2d54c8f8058ab4e4",
-//         "_id": "6588fe63fb8d335f6c0de704"
-//       },
-//       {
-//         "date": "2024-01-05T00:00:00.000Z",
-//         "status": "Present",
-//         "subName": "653566402d54c8f8058ab3ca",
-//         "_id": "659a961a3bd908138fb3174b"
-//       },
-//       {
-//         "date": "2024-01-06T00:00:00.000Z",
-//         "status": "Present",
-//         "subName": "653566402d54c8f8058ab3ca",
-//         "_id": "659a962b3bd908138fb31756"
-//       }
-//     ],
-//     "examResult": [
-//       {
-//         "subName": "653566402d54c8f8058ab3ca",
-//         "marksObtained": 70,
-//         "_id": "6535672b2d54c8f8058ab432"
-//       },
-//       {
-//         "subName": "6535687a2d54c8f8058ab4e4",
-//         "marksObtained": 65,
-//         "_id": "6535689e2d54c8f8058ab52d"
-//       }
-//     ],
-//     "__v": 8
-//   },
-//   {
-//     "_id": "653567cf2d54c8f8058ab46f",
-//     "name": "anju",
-//     "rollNum": 3,
-//     "sclassName": {
-//       "_id": "653566192d54c8f8058ab3be",
-//       "sclassName": "class 8"
-//     },
-//     "school": "6535658d2d54c8f8058ab3a8",
-//     "role": "Student",
-//     "attendance": [
-//       {
-//         "date": "2023-10-23T00:00:00.000Z",
-//         "status": "Present",
-//         "subName": "653566402d54c8f8058ab3ca",
-//         "_id": "6535681d2d54c8f8058ab485"
-//       },
-//       {
-//         "date": "2023-10-22T00:00:00.000Z",
-//         "status": "Present",
-//         "subName": "653566402d54c8f8058ab3ca",
-//         "_id": "653568322d54c8f8058ab4a2"
-//       },
-//       {
-//         "date": "2023-12-12T00:00:00.000Z",
-//         "status": "Present",
-//         "subName": "6535687a2d54c8f8058ab4e4",
-//         "_id": "6588fe75fb8d335f6c0de734"
-//       },
-//       {
-//         "date": "2023-12-14T00:00:00.000Z",
-//         "status": "Absent",
-//         "subName": "6535687a2d54c8f8058ab4e4",
-//         "_id": "6588fe7dfb8d335f6c0de73d"
-//       },
-//       {
-//         "date": "2024-01-04T00:00:00.000Z",
-//         "status": "Present",
-//         "subName": "653566402d54c8f8058ab3ca",
-//         "_id": "659a97003bd908138fb31857"
-//       },
-//       {
-//         "date": "2024-01-05T00:00:00.000Z",
-//         "status": "Present",
-//         "subName": "653566402d54c8f8058ab3ca",
-//         "_id": "659a97063bd908138fb31862"
-//       },
-//       {
-//         "date": "2024-01-06T00:00:00.000Z",
-//         "status": "Present",
-//         "subName": "653566402d54c8f8058ab3ca",
-//         "_id": "659a970a3bd908138fb3186e"
-//       }
-//     ],
-//     "examResult": [
-//       {
-//         "subName": "653566402d54c8f8058ab3ca",
-//         "marksObtained": 60,
-//         "_id": "6535684f2d54c8f8058ab4c3"
-//       },
-//       {
-//         "subName": "6535687a2d54c8f8058ab4e4",
-//         "marksObtained": 80,
-//         "_id": "653568b02d54c8f8058ab557"
-//       }
-//     ],
-//     "__v": 9
-//   }
-// ]
-
+import { getAllSubjectDetails } from '../../../redux/sclassRelated/sclassHandle';
+import './QuizAnalysis.css';
+import _ from 'lodash';
 
 const QuizAnalysisSixth = () => {
-
+  const dispatch = useDispatch();
     const [results, setResults] = useState([]);
     const { userDetails, currentUser, loading, response, error } = useSelector((state) => state.user);
+    const { subjectDetails, subjectsList } = useSelector((state) => state.sclass);
+    const [subjectID, setsubjectID] = useState();
+    //??const [subjectNames, setSubjectNames] = useState('');
+    const [subjectNames, setSubjectNames] = useState([]);
+    //console.log(currentUser.school._id)
+    
 
     useEffect(() => {
         getAllResults();
@@ -152,7 +26,7 @@ const QuizAnalysisSixth = () => {
     
       const getAllResults = () => {
         axios
-          .get(`https://elearningsite-server.onrender.com/Students/${currentUser.school._id}`)
+          .get(`http://localhost:5000/Students/${currentUser.school._id}`)
           .then((result) => {
             setResults(result.data);
           })
@@ -160,8 +34,7 @@ const QuizAnalysisSixth = () => {
             setResults([]);
             //console.log(error);
             alert("Error happened!");
-          });
-          
+          });     
       };
 
       //console.log(results);
@@ -239,20 +112,98 @@ const QuizAnalysisSixth = () => {
               averageMarks,
             };
         })
+        //console.log(chartData);
+
+    
+        useEffect(() => {
+          const fetchSubjectNames = async () => {
+              const subjectID = currentUser.school._id;
+              try {
+                await dispatch(getAllSubjectDetails(subjectID, 'AllSubjects'));
+              } catch (error) {
+                console.error(`Error fetching subject details for ${subjectID}:`, error);
+                // Handle error if needed
+              }
+          };
+        
+          // Call fetchSubjectNames only when chartData or dispatch changes
+          if (chartData.length > 0) {
+            fetchSubjectNames();
+          }
+        }, []);
+        //console.log(subjectsList)
+
+
+// Map over chartData and update subject with subName based on _id match
+const updatedChartsData = chartData.map(data => {
+  const matchingSubject = subjectsList.find(subject => subject._id === data.subject);
+
+  if (matchingSubject) {
+    return {
+      ...data,
+      subject: matchingSubject.subName // Replace subject ID with subName
+    };
+  } else {
+    return data; // No match found, keep original data
+  }
+});
+
+//console.log(updatedChartsData);
+      // useEffect(() => {
+      //   const fetchSubjectDetails = async () => {
+      //     const updatedSubjectNames = [];
+    
+      //     for (const chartItem of chartData) {
+      //       const subjectID = chartItem.subject;
+    
+      //       try {
+      //         await dispatch(getSubjectDetails(subjectID, 'Subject'));
+                //   console.log('subjectsList:', subjectsList);
+      //         const matchedSubject = subjectsList.find((subject) => subject._id === subjectID);
+    
+      //         if (matchedSubject) {
+      //           updatedSubjectNames.push({
+      //             courseID: subjectID,
+      //             courseName: matchedSubject.subName
+      //           });
+      //         }
+      //       } catch (error) {
+      //         console.error(`Error fetching subject details for ${subjectID}:`, error);
+      //         // Handle error if needed
+      //       }
+      //     }
+    
+      //     setSubjectNames(updatedSubjectNames);
+      //   };
+    
+      //   if (chartData.length > 0) {
+      //     fetchSubjectDetails();
+      //   }
+      // }, [chartData, dispatch, subjectsList]);
+    
+      // // Log subjectsList and subjectNames after useEffect runs
+      // useEffect(() => {
+      //   console.log('subjectsList:', subjectsList);
+      //   console.log('subjectNames:', subjectNames);
+      // }, [subjectsList, subjectNames]);
+
+      
+
+
 
     return (
         <div>
-            <h2>Semester Final Marks</h2>
-        <ResponsiveContainer width="50%" height={200}>
-      <BarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+            <h2 className="video-watches-title">Semester Final Marks</h2>
+        <ResponsiveContainer width="50%" height={250}>
+      <BarChart data={updatedChartsData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="subject" />
         <YAxis domain={[0, 100]}/>
         <Tooltip />
         <Legend />
-        <Bar dataKey="firstStudentMarks" fill="#8884d8" name={`${a}`}/>
-        <Bar dataKey="highestMarks" fill="#82ca9d" name="Highes" />
-        <Bar dataKey="averageMarks" fill="#ffc658" name="Average" />
+        <Bar dataKey="firstStudentMarks" fill="#8884d8" name={`${a}`} barSize={40}/>
+        <Bar dataKey="highestMarks" fill="#82ca9d" name="Highes" barSize={40}/>
+        <Bar dataKey="averageMarks" fill="#ffc658" name="Average" barSize={40}/>
       </BarChart>
     </ResponsiveContainer>
     </div>

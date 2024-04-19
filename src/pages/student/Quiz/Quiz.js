@@ -9,7 +9,7 @@ import axios from 'axios';
  import { Navigate } from 'react-router-dom';
 /** redux store import */
 import { useSelector, useDispatch } from 'react-redux';
-
+import "./Question.css";
 
 const Quiz = () => {
      const [check, setChecked] = useState(undefined);
@@ -19,6 +19,7 @@ const Quiz = () => {
      const { trace, queue } = useSelector(state => state.question);
      const dispatch = useDispatch()
      const { semester, year, course, category } = useParams({});
+     console.log(result)
 
      useEffect(()=>{
                //console.log(semester)
@@ -41,32 +42,42 @@ const Quiz = () => {
     // }
 
     /** Prev button event handler */
+
+    function onChecked(check){
+        console.log(check)
+       //setChecked(check)
+    }
+
+    function onNext(){
+        // console.log('OnNext Click')
+        //setChecked(undefined);
+        console.log(trace);
+        if(trace < queue.length){
+            /** increase the trace value by one using MoveNextAction */
+            dispatch(MoveNextQuestion());
+            // dispatch(PushAnswer(check));
+             /** insert a new result in the array.  */
+            if(result.length <= trace){
+                dispatch(PushAnswer(check))
+                
+            }
+        
+    }
+    
+    
+}
+
      function onPrev(){
+        
          if(trace > 0){
               /** decrease the trace value by one using MovePrevQuestion */
                dispatch(MovePrevQuestion());
-               
+               console.log(trace);
         // console.log('OnPrev Click')
          }
          }
-         function onNext(){
-            // console.log('OnNext Click')
-            if(trace < queue.length){
-                /** increase the trace value by one using MoveNextAction */
-                dispatch(MoveNextQuestion());
-                // dispatch(PushAnswer(check));
-                 /** insert a new result in the array.  */
-                if(result.length <= trace){
-                    dispatch(PushAnswer(check))
-                }
-            
-        }
-        setChecked(undefined);
-    }
-     function onChecked(check){
-         console.log(check)
-          setChecked(check)
-     }
+        
+     
 
     /** finished exam after the last question */
    
@@ -85,7 +96,7 @@ const Quiz = () => {
         <div className='grid'>
         <button className='btn prev' onClick={onPrev}>Prev</button>k
         <button className='btn next' onClick={onNext}>Next</button>
-        </div> */}
+        </div> 
         {/* display questions */}
         <Question onChecked={onChecked} />
 

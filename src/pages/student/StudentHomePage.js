@@ -84,7 +84,7 @@ const StudentHomePage = () => {
                                                         <>
 
                                                         {/* 12.1.24 */}
-                                                            {/* <CustomPieChart data={chartData} /> */}
+                                                             <CustomPieChart data={chartData} /> 
                                                         </>
                                                     )
                                                         :

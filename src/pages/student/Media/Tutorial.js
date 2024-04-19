@@ -15,7 +15,7 @@ function Tutorial(props) {
 
   const getAllMedias = () => {
     axios
-      .get(`https://elearningsite-server.onrender.com/api/v1/media/all`)
+      .get(`http://localhost:5000/api/v1/media/all`)
       .then((result) => {
         setMedias(result.data);
       })
@@ -30,28 +30,13 @@ function Tutorial(props) {
   return (
     <>
       <div className="row">
-        {/* <div className="col-md-6">
-          <div
-            className="card"
-            style={{
-              height: "auto",
-              width: "800px",
-              margin: "40px",
-              border: "1px solid black",
-            }}
-          >
-            <div className="card-body">
-            {getAllMedias && <UploadForm getAllMedias={getAllMedias} />}
-              
-            </div>
-          </div>
-        </div> */}
+        
         <div className="col-md-6">
           <div
             className="card"
             style={{
               height: "auto",
-              width: "800px",
+              width: "auto",
               margin: "40px",
               border: "1px solid black",
             }}

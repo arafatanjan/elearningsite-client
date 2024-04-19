@@ -14,6 +14,8 @@ const QuizAnalysisFirst = () => {
             <br/>
                <QuizAnalysisThird/>   
              {/* <QuizAnalysisFifth/> */}
+             <br/>
+            <br/>
              <QuizAnalysisSixth/>
              <br/>
             <br/>

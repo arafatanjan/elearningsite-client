@@ -11,6 +11,8 @@ import { resetResultAction } from '../../../redux/QuizRelated/resultReducer';
 import { usePublishResult } from '../Quiz/Hooks/setResult';
 import { getServerData } from "./Helper";
 import { useParams } from "react-router-dom";
+import StudentQuizMarks from './StudentQuizMarks';
+import { useNavigate } from 'react-router-dom';
 
 const Result = () => {
     //const [property, setProperty] = useState([]);
@@ -23,37 +25,38 @@ const Result = () => {
       const earnPoints = earnPoints_Number(result, answer, 10)
       const flag = flagResult(totalPoints, earnPoints)
       const { currentUser, response, error } = useSelector((state) => state.user);
+      const [studentID, setStudentID] = useState("");
+      const [showQuizMarks, setShowQuizMarks] = useState(false); // State to control visibility of StudentQuizMarks
+      const navigate = useNavigate();
+
+      useEffect(() => { 
+        setStudentID(currentUser._id);   
+  }, [currentUser._id]);
+
 
   if (response) { console.log(response) }
   else if (error) { console.log(error) }
       
-      useEffect(()=>{
-        console.log(semester)
-        console.log(year)
-        console.log(course)
-        console.log(category)
-        console.log(currentUser.name)
-});
+
      
-      
-      usePublishResult ({
-        property : {semester, year, course, category},
+      usePublishResult ( studentID,{
+        property : { course, category},
         result, 
         username : currentUser.name,
         attempts,
         points: earnPoints,
         achived : flag ? "Passed" : "Failed" });
-        
-        // useEffect(() => {
-        //     getAllProperties();
-        //   }, []);
-        //   console.log(property.data.map(proper=>proper));
 
     function onRestart(){
         // console.log('on Restart');
         dispatch(resetAllAction());
         dispatch(resetResultAction());
-    }
+        setShowQuizMarks(true); // Set showQuizMarks to true to render StudentQuizMarks
+        //navigate('/Student/quiz');
+  }
+
+    
+
     return (
         <div className='container'>
              <h1 className='title'>Quiz Result</h1>
@@ -84,8 +87,11 @@ const Result = () => {
             </div> */}
              </div>
              <div className="start">
-            <Link className='btn' to={'/Student/quiz'} onClick={onRestart}>Finish</Link>
+             <button className='btn' onClick={onRestart}>Finish</button>
         </div>
+
+         {/* Conditionally render StudentQuizMarks based on showQuizMarks state */}
+      {showQuizMarks && <StudentQuizMarks />}
          {/* <div className="container">
             
             <ResultTable></ResultTable>

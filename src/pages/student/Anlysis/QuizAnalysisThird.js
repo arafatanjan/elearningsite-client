@@ -7,18 +7,22 @@ import { calculateOverallAttendancePercentage, calculateSubjectAttendancePercent
 import axios from "axios";
 import CustomBarChart from '../../../components/CustomBarChart'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from 'recharts';
+import './QuizAnalysis.css';
 
 const QuizAnalysisThird = ({ active, payload, dataKey }) => {
     const dispatch = useDispatch();
     const [subjectAttendance, setSubjectAttendance] = useState([]);
     const { userDetails, currentUser, loading, response, error } = useSelector((state) => state.user);
     const [results, setResults] = useState([]);
+    
 
-    if (active && payload && payload.length) {
-        //console.log(payload);
-        const { subject, attendancePercentage, totalClasses, attendedClasses, marksObtained, subName } = payload[0].payload;
-    }
-
+  //   if (active && payload && payload.length > 0 && payload[0] && payload[0].payload) {
+  //     const { subject, attendancePercentage, totalClasses, attendedClasses, marksObtained, subName } = payload[0].payload;
+  //     console.log(payload); // Check payload[0].payload contents
+  // } else {
+  //     console.log('Payload is empty or invalid');
+  // }
+   
     useEffect(() => {
         dispatch(getUserDetails(currentUser._id, "Student"));
     }, [dispatch, currentUser._id]);
@@ -27,6 +31,7 @@ const QuizAnalysisThird = ({ active, payload, dataKey }) => {
             setSubjectAttendance(userDetails.attendance || []);
         }
     }, [userDetails])
+    //console.log(userDetails)
 
     const attendanceBySubject = groupAttendanceBySubject(subjectAttendance)
 
@@ -34,24 +39,24 @@ const QuizAnalysisThird = ({ active, payload, dataKey }) => {
 
     const subjectData = Object.entries(attendanceBySubject).map(([subName, { subCode, present, sessions }]) => {
         const subjectAttendancePercentage = calculateSubjectAttendancePercentage(present, sessions);
+      
         return {
             subject: subName,
             attendancePercentage: subjectAttendancePercentage,
             totalClasses: sessions,
             attendedClasses: present
-        };
-    });
+            
+        }; 
+        
+    } 
+  );
+  
+  
 
     Object.entries(attendanceBySubject).map(([subName, { present, allData, subId, sessions }], index) => {
         const subjectAttendancePercentage = calculateSubjectAttendancePercentage(present, sessions);
         //console.log(subjectAttendancePercentage);
       })
-
-    //console.log(attendanceBySubject);
-    //console.log(overallAttendancePercentage);
-    //console.log(subjectAttendancePercentage);
-    //console.log(attendancePercentage);
-    //console.log(currentUser.school._id) 
 
     useEffect(() => {
         getAllResults();
@@ -61,7 +66,7 @@ const QuizAnalysisThird = ({ active, payload, dataKey }) => {
     
       const getAllResults = () => {
         axios
-          .get(`https://elearningsite-server.onrender.com/Students/${currentUser.school._id}`)
+          .get(`http://localhost:5000/Students/${currentUser.school._id}`)
           .then((result) => {
             setResults(result.data);
           })
@@ -96,101 +101,7 @@ const QuizAnalysisThird = ({ active, payload, dataKey }) => {
   //console.log(groupedArrays);
   //console.log(userDetails);
 
-  // Function to count attendance status for different subjects
-//   const countAttendanceStatus = (group) => {
-//     const subjectAttendanceCounts = {};
-
-//     group.forEach(student => {
-//       student.attendance.forEach(record => {
-//         const subjectname = record.subName;
-//         const status = record.status;
-
-//         if (!subjectAttendanceCounts[subjectname]) {
-//           subjectAttendanceCounts[subjectname] = {};
-//         }
-
-//         if (!subjectAttendanceCounts[subjectname][status]) {
-//           subjectAttendanceCounts[subjectname][status] = 1;
-//         } else {
-//           subjectAttendanceCounts[subjectname][status]++;
-//         }
-//       });
-//     });
-
-//     return subjectAttendanceCounts;
-// };
-
-// const calculateAttendanceStats = (group) => {
-//     const subjectStats = {};
-
-//     group.forEach(student => {
-//       student.attendance.forEach(record => {
-//         const subjectName = record.subName;
-//         const status = record.status;
-
-//         if (!subjectStats[subjectName]) {
-//           subjectStats[subjectName] = {
-//             totalPresent: 0,
-//             highestPresent: 0,
-//             studentCount: 0,
-//           };
-//         }
-
-//         if (status === 'Present') {
-//           subjectStats[subjectName].totalPresent++;
-//           subjectStats[subjectName].highestPresent = Math.max(
-//             subjectStats[subjectName].highestPresent,
-//             subjectStats[subjectName].totalPresent
-//           );
-//         }
-
-//         subjectStats[subjectName].studentCount++; // Move this line inside the record loop
-//       });
-//     });
-//         return subjectStats;
-//   };
-
-   // Function to calculate total, highest, and average present per subject across all students
-//    const calculateOverallAttendanceStats = (students) => {
-//     const overallStats = {};
-
-//     students.forEach(student => {
-//       student.attendance.forEach(record => {
-//         const subjectName = record.subName;
-//         const status = record.status;
-
-//         if (!overallStats[subjectName]) {
-//           overallStats[subjectName] = {
-//             totalPresent: 0,
-//             highestPresent: 0,
-//             studentCount: 0,
-//           };
-//         }
-
-//         if (status === 'Present') {
-//           overallStats[subjectName].totalPresent++;
-//           overallStats[subjectName].highestPresent = Math.max(
-//             overallStats[subjectName].highestPresent,
-//             overallStats[subjectName].totalPresent
-//           );
-//         }
-
-//         overallStats[subjectName].studentCount++;
-//       });
-//     });
-
-//     return overallStats;
-//   };
-
-//   const overallAttendanceStats = calculateOverallAttendanceStats(results);
-
-//   const chartData = Object.entries(overallAttendanceStats).map(([subject, stats]) => ({
-//     subject,
-//     totalPresent: stats.totalPresent,
-//     highestPresent: stats.highestPresent,
-//     studentCount: stats.studentCount,
-//   }));
-
+  
  // Function to calculate total, highest, and average present per subject
  const calculateSubjectStats = (student) => {
     const stats = {
@@ -215,41 +126,10 @@ const QuizAnalysisThird = ({ active, payload, dataKey }) => {
         
             
              <>
-             <h2>Attendance</h2>
+             <h2 className="video-watches-title">Attendance</h2>
                  <CustomBarChart chartData={subjectData} dataKey="attendancePercentage" />
              </>
 
-    //         <div style={{ display: 'flex' }}>
-    //         {results.map((student, index) => {
-    //           const subjectStats = calculateSubjectStats(student);
-      
-    //           return (
-    //             <div style={{ display: 'flex' }}>
-    //             {results.map((student, index) => {
-    //              const subjectStats = calculateSubjectStats(student);
-
-    //     return (
-    //       <div key={index} style={{ margin: '0 10px' }}>
-    //         <h2>{student.name}</h2>
-    //         {nam.includes(student.name) ? (
-    //           <BarChart width={400} height={300} data={[{ name: 'Present', count: subjectStats.totalPresent }]}>
-    //             <CartesianGrid strokeDasharray="3 3" />
-    //             <XAxis dataKey="name" />
-    //             <YAxis />
-    //             <Tooltip />
-    //             <Legend />
-    //             <Bar dataKey="count" fill="#8884d8" />
-    //           </BarChart>
-    //         ) : (
-    //           <p>No chart available for this subject</p>
-    //         )}
-    //       </div>
-    //     );
-    //   })}
-    // </div>
-    //           );
-    //         })}
-    //       </div>
     );
 };
 

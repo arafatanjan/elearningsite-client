@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import { getUserDetails } from '../../../redux/userRelated/userHandle';
-import { getSubjectList } from '../../../redux/sclassRelated/sclassHandle';
 import { updateStudentFields } from '../../../redux/studentRelated/studentHandle';
+//import { getAllStudentdata } from '../../../redux/studentRelated/studentHandle';
+import axios from "axios";
 
 import {
     Box, InputLabel,
@@ -14,43 +14,86 @@ import {
 import { PurpleButton } from '../../../components/buttonStyles';
 import Popup from '../../../components/Popup';
 
-const StudentAttendance = ({ situation }) => {
+const TeacherEvaluationForm  = ({ situation }) => {
     const dispatch = useDispatch();
     const { currentUser, userDetails, loading } = useSelector((state) => state.user);
     const { subjectsList } = useSelector((state) => state.sclass);
     const { response, error, statestatus } = useSelector((state) => state.student);
-    const params = useParams()
-
     const [studentID, setStudentID] = useState("");
     const [subjectName, setSubjectName] = useState("");
     const [chosenSubName, setChosenSubName] = useState("");
     const [status, setStatus] = useState('');
-    const [date, setDate] = useState('');
-
+    const [newMarks, setNewmarks] = useState('');
+    const [givenMarks, setGivenMarks] = useState('');
+    const [results, setResults] = useState('');
     const [showPopup, setShowPopup] = useState(false);
     const [message, setMessage] = useState("");
     const [loader, setLoader] = useState(false)
-    console.log(currentUser)
+    //const [teacherInfo, setTeacherInfo] = useState(false)
+    //setTeacherInfo(currentUser);
+    const teacherInfo=currentUser;
+    console.log(teacherInfo);
 
+    
     useEffect(() => {
-        if (situation === "Student") {
-            setStudentID(params.id);
-            const stdID = params.id
-            dispatch(getUserDetails(stdID, "Student"));
-        }
-        else if (situation === "Subject") {
-            const { studentID, subjectID } = params
-            setStudentID(studentID);
-            dispatch(getUserDetails(studentID, "Student"));
-            setChosenSubName(subjectID);
-        }
-    }, [situation]);
+        getAllStudentdata();
+        ////console.log(na?.property?.semester);
+        ////console.log(results)
+      }, []);
 
-    useEffect(() => {
-        if (userDetails && userDetails.sclassName && situation === "Student") {
-            dispatch(getSubjectList(userDetails.sclassName._id, "ClassSubjects"));
+    const getAllStudentdata = () => {
+        axios
+          .get(`http://localhost:5000/teacher/student/getAllStudent`)
+          .then((result) => {
+            setResults(result.data);
+          })
+          .catch((error) => {
+            setResults([]);
+            //console.log(error);
+            alert("Error happened!");
+          });        
+      };
+
+      console.log(results)
+
+     //??
+      useEffect(() => {
+        if (results && results.length > 0) {
+          // Initialize an array to store filtered student objects
+          const filteredStudents = [];
+      
+          // Iterate through the results array to filter students based on the condition
+          results.forEach(student => {
+            // Check if the student's examResult includes items where subName matches teachSubject._id
+            const filteredExamResults = student.examResult.filter(result => result.subName === teacherInfo.teachSubject._id);
+      
+            // If there are matching exam results, create a new filteredStudent object
+            if (filteredExamResults.length > 0) {
+              const filteredStudent = {
+                _id: student._id,
+                name: student.name,
+                rollNum: student.rollNum,
+                school: student.school,
+                teachSubject_id: teacherInfo.teachSubject._id,
+                teachSubject_subName: teacherInfo.teachSubject.subName,
+                attendance: student.attendance,
+                examResult: filteredExamResults // Assign filtered exam results
+              };
+              filteredStudents.push(filteredStudent);
+            }
+          });
+      
+          // Do something with filteredStudents array (e.g., set state, dispatch an action, etc.)
+          // For example:
+          // setFilteredStudents(filteredStudents);
+          console.log(filteredStudents);
         }
-    }, [dispatch, userDetails]);
+      }, [results]); // Dependency array with results
+      
+      // Ensure that `results` and `teacherInfo.teachSubject._id` are provided as dependencies
+      // to trigger the effect whenever these values change.
+      
+//console.log(filteredStudents);
 
     const changeHandler = (event) => {
         const selectedSubject = subjectsList.find(
@@ -60,7 +103,7 @@ const StudentAttendance = ({ situation }) => {
         setChosenSubName(selectedSubject._id);
     }
 
-    const fields = { subName: chosenSubName, status, date }
+    const fields = { subName: chosenSubName}
 
     const submitHandler = (event) => {
         event.preventDefault()
@@ -112,9 +155,7 @@ const StudentAttendance = ({ situation }) => {
                             }}
                         >
                             <Stack spacing={1} sx={{ mb: 3 }}>
-                                <Typography variant="h4">
-                                    Student Name: {userDetails.name}
-                                </Typography>
+                                
                                 {currentUser.teachSubject &&
                                     <Typography variant="h4">
                                         Subject Name: {currentUser.teachSubject?.subName}
@@ -123,51 +164,40 @@ const StudentAttendance = ({ situation }) => {
                             </Stack>
                             <form onSubmit={submitHandler}>
                                 <Stack spacing={3}>
-                                    {
-                                        situation === "Student" &&
-                                        <FormControl fullWidth>
-                                            <InputLabel id="demo-simple-select-label">Select Subject</InputLabel>
-                                            <Select
-                                                labelId="demo-simple-select-label"
-                                                id="demo-simple-select"
-                                                value={subjectName}
-                                                label="Choose an option"
-                                                onChange={changeHandler} required
-                                            >
-                                                {subjectsList ?
-                                                    subjectsList.map((subject, index) => (
-                                                        <MenuItem key={index} value={subject.subName}>
-                                                            {subject.subName}
-                                                        </MenuItem>
-                                                    ))
-                                                    :
-                                                    <MenuItem value="Select Subject">
-                                                        Add Subjects For Attendance
-                                                    </MenuItem>
-                                                }
-                                            </Select>
-                                        </FormControl>
-                                    }
+                                    
                                     <FormControl fullWidth>
-                                        <InputLabel id="demo-simple-select-label">Attendance Statuss</InputLabel>
+                                        <InputLabel id="demo-simple-select-label">Choose Types</InputLabel>
                                         <Select
                                             labelId="demo-simple-select-label"
                                             id="demo-simple-select"
-                                            value={status}
+                                            //value={status}
                                             label="Choose an option"
                                             onChange={(event) => setStatus(event.target.value)}
                                             required
                                         >
-                                            <MenuItem value="Present">Present</MenuItem>
-                                            <MenuItem value="Absent">Absent</MenuItem>
+                                            <MenuItem value="exam">Exam Marks</MenuItem>
+                                            <MenuItem value="progress">Progress Marks</MenuItem>
+                                            <MenuItem value="quiz">Quiz Marks</MenuItem>
+                                            <MenuItem value="attendance">Attendance</MenuItem>
                                         </Select>
                                     </FormControl>
                                     <FormControl>
                                         <TextField
-                                            label="Select Date"
-                                            type="date"
-                                            value={date}
-                                            onChange={(event) => setDate(event.target.value)} required
+                                            label="Given Marks"
+                                            type="number"
+                                            value={givenMarks}
+                                            onChange={(event) => setGivenMarks(event.target.value)} required
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                        />
+                                    </FormControl>
+                                    <FormControl>
+                                        <TextField
+                                            label="New Marks"
+                                            type="number"
+                                            value={newMarks}
+                                            onChange={(event) => setNewmarks(event.target.value)} required
                                             InputLabelProps={{
                                                 shrink: true,
                                             }}
@@ -195,4 +225,6 @@ const StudentAttendance = ({ situation }) => {
     )
 }
 
-export default StudentAttendance
+export default TeacherEvaluationForm 
+
+

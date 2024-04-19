@@ -20,7 +20,7 @@ const StudentExamMarks = ({ situation }) => {
     const { subjectsList } = useSelector((state) => state.sclass);
     const { response, error, statestatus } = useSelector((state) => state.student);
     const params = useParams()
-
+    console.log( userDetails);
     const [studentID, setStudentID] = useState("");
     const [subjectName, setSubjectName] = useState("");
     const [chosenSubName, setChosenSubName] = useState("");
@@ -29,7 +29,8 @@ const StudentExamMarks = ({ situation }) => {
     const [showPopup, setShowPopup] = useState(false);
     const [message, setMessage] = useState("");
     const [loader, setLoader] = useState(false)
-    console.log(userDetails.sclassName._id);
+    console.log(userDetails.sclassName);
+    //console.log(userDetails.sclassName._id);??
 
     useEffect(() => {
         if (situation === "Student") {
@@ -44,6 +45,7 @@ const StudentExamMarks = ({ situation }) => {
             setChosenSubName(subjectID);
         }
     }, [situation]);
+    //console.log(params.id);??
 
     useEffect(() => {
         if (userDetails && userDetails.sclassName && situation === "Student") {

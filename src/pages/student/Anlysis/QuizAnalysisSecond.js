@@ -1,88 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from 'recharts';
-import { useSelector } from 'react-redux';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer  } from 'recharts';
 import axios from "axios";
-
-const studentsData = 
-[
-  {
-    "_id": "6598ef1b704a36fe265ee6f8",
-    "property": {
-      "semester": "z",
-      "year": "z",
-      "course": "z",
-      "category": "z"
-    },
-    "username": "arafat",
-    "result": [
-      0
-    ],
-    "attempts": 1,
-    "points": 20,
-    "achived": "",
-    "createdAt": "2024-01-06T06:11:39.132Z",
-    "__v": 0
-  },
-  {
-    "_id": "6598ef1b704a36fe265ee6f6",
-    "property": {
-      "semester": "z",
-      "year": "z",
-      "course": "z",
-      "category": "z"
-    },
-    "username": "arafatt",
-    "result": [
-      0
-    ],
-    "attempts": 1,
-    "points": 50,
-    "achived": "",
-    "createdAt": "2024-01-06T06:11:39.131Z",
-    "__v": 0
-  },
-  {
-    "_id": "65995f86cf67f5a3e5e587e8",
-    "property": {
-      "semester": "First",
-      "year": "2023",
-      "course": "General knowledge",
-      "category": "BANGLADESH"
-    },
-    "username": "arafat",
-    "result": [
-      0
-    ],
-    "attempts": 1,
-    "points": 30,
-    "achived": "",
-    "createdAt": "2024-01-06T14:11:18.560Z",
-    "__v": 0
-  },
-  {
-    "_id": "65995f86cf67f5a3e5e587ea",
-    "property": {
-      "semester": "First",
-      "year": "2023",
-      "course": "General knowledge",
-      "category": "BANGLADESH"
-    },
-    "username": "arafatt",
-    "result": [
-      0
-    ],
-    "attempts": 1,
-    "points": 20,
-    "achived": "",
-    "createdAt": "2024-01-06T14:11:18.566Z",
-    "__v": 0
-  }
-]
-  ;
+import { getAllSubjectDetails } from '../../../redux/sclassRelated/sclassHandle';
+import { useDispatch, useSelector } from 'react-redux';
+import './QuizAnalysis.css';
 
 const QuizAnalysisSecond = () => {
+  const dispatch = useDispatch();
     const { currentUser } = useSelector((state) => state.user);
-    
+    const { subjectDetails, subjectsList } = useSelector((state) => state.sclass);
+  const [subjectID, setsubjectID] = useState();
+  const [subjectNames, setSubjectNames] = useState('');
+  //console.log(currentUser.school._id)
    
     ////console.log(currentUser.name);
     const [results, setResults] = useState([]);
@@ -95,7 +24,7 @@ const QuizAnalysisSecond = () => {
     
       const getAllResults = () => {
         axios
-          .get(`https://elearningsite-server.onrender.com/result`)
+          .get(`http://localhost:5000/result`)
           .then((result) => {
             setResults(result.data);
           })
@@ -103,15 +32,19 @@ const QuizAnalysisSecond = () => {
             setResults([]);
             //console.log(error);
             alert("Error happened!");
-          });
-          
+          });        
       };
 
+      
     const nam = results.map(student => student.username);
-    //////console.log(nam);
-    const arafatSemester = results.find(student => student.username === currentUser.name)?.property.semester || '';
+    //console.log(nam);
+    //const arafatSemester = results.find(student => student.username === currentUser.name)?.property.semester || '';
+    const matchingResults = results.filter(student => student.username === currentUser.name);
+    const arafatSemester = matchingResults.map(student => student.property.semester) || [];
+    //console.log(arafatSemester);
+
     const groupedArrays = results.reduce((result, student) => {
-        const key = `${student.property.course}-${student.property.category}`;
+    const key = `${student.property.course}-${student.property.category}`;
       
         if (!result[key]) {
           result[key] = [];
@@ -122,28 +55,113 @@ const QuizAnalysisSecond = () => {
       }, {});
       
       const finalArray = Object.values(groupedArrays);
-
-      //console.log(finalArray);
+      
 
       const chartsData = finalArray.map((data, index) => ({
-        name: 'Chart ' + (index + 1),
+        name: data.filter(student => student.username === currentUser.name).map(obj => ({
+        course: obj.property.course,
+        category: obj.property.category})),
         avg: data.reduce((sum, entry) => sum + entry.points, 0) / data.length,
         highest: Math.max(...data.map(entry => entry.points)),
         points: data.filter(result => result.username === currentUser.name)
         .map((result, index) => result.points),
         //arafatPoints : finalArray.find(student => student.username === currentUser.name)?.points || 0,
       }));
-      //const arafatPoints = finalArray.find(student => student.username === currentUser.name)?.points || 0;
+
+
+
+      useEffect(() => {
+        const fetchSubjectNames = async () => {
+            const subjectID = currentUser.school._id;
+            try {
+              await dispatch(getAllSubjectDetails(subjectID, 'AllSubjects'));
+            } catch (error) {
+              console.error(`Error fetching subject details for ${subjectID}:`, error);
+              // Handle error if needed
+            }
+        };
+      
+        // Call fetchSubjectNames only when chartData or dispatch changes
+        if (chartsData.length > 0) {
+          fetchSubjectNames();
+        }
+      }, []);
+      //console.log(subjectsList)
+
+      const updatedChartsData = chartsData.map(data => {
+        const updatedName = data.name.map(courseInfo => {
+          const matchingSubject = subjectsList.find(subject => subject._id === courseInfo.course);
+          if (matchingSubject) {
+            return {
+              ...courseInfo,
+              course: matchingSubject.subName
+            };
+          }
+          return courseInfo;
+        });
+      
+        return {
+          ...data,
+          name: updatedName
+        };
+      });
+      
+      //console.log(updatedChartsData);
+     
+      // useEffect(() => {
+      //   const updatedSubjectNames = [];
+    
+      //   chartsData.forEach((chartItem) => {
+      //     const subjectID = chartItem.name[0]; // Assuming name array contains only one subject ID
+      //     dispatch(getSubjectDetails(subjectID, 'Subject')).then(() => {
+      //       // After dispatching the action, subjectsList should be updated
+      //       const matchedSubject = subjectsList.find((subject) => subject._id === subjectID);
+      //       if (matchedSubject) {
+      //         updatedSubjectNames.push({
+      //           courseID: subjectID,
+      //           courseName: matchedSubject.subName
+      //         });
+      //         setSubjectNames(updatedSubjectNames);
+      //       }
+      //     });
+      //   });
+      // }, [chartsData, dispatch, subjectsList]);
+
+      ///console.log(subjectsList);
+      ///console.log(subjectNames);
+
       const pointsForArafat = finalArray.flatMap(subarray => 
         subarray
           .filter(result => result.username === currentUser.name)
           .map((result, index) => result.points)
       );
       const arafatPoints= pointsForArafat.map((points, index) => (points ))
-      //console.log(arafatPoints)
-      //console.log(arafatPoints)
+      ///console.log(finalArray);
+      ///console.log(chartsData);
+     
+      // const updatedChartsData = chartsData.map(data => {
+      //   const updatedName = data.name.map(courseInfo => {
+      //     const matchingSubject = subjectNames.find(subject => subject.courseID === courseInfo.course);
+      //     if (matchingSubject) {
+      //       return {
+      //         ...courseInfo,
+      //         course: matchingSubject.courseName
+      //       };
+      //     }
+      //     return courseInfo;
+      //   });
+      
+      //   return {
+      //     ...data,
+      //     name: updatedName
+      //   };
+      // });
+      
+      //console.log(updatedChartsData);
+
       const a= nam.includes(currentUser.name) ? currentUser.name : '';
-////console.log(a)
+      const r= chartsData.map((chartData, index) =>chartData.name)
+      //console.log(r)
 //     const banglaData = nam.includes(currentUser.name)
 //   ? [
 //       //{ name: 'A', Bangla: studentsData?.student[0].points },
@@ -153,43 +171,34 @@ const QuizAnalysisSecond = () => {
       
 //     ]
 //   : [];
+// Extracting unique course-category combinations for X-axis labels
+//const xAxisLabels = updatedChartsData.map(chartData => `${chartData?.name[0].course} - ${chartData?.name[0].category}`);
 
+// Configuring Y-axis domain based on the maximum value of 'highest' across all data
+const maxYAxisValue = Math.max(...updatedChartsData.map(chartData => chartData.highest));
+const yAxisDomain = [0, maxYAxisValue + 10]; // Adjusted to provide some padding
 
-  return (
-    <>
-    <h2>Quiz</h2>
-    {nam.includes(currentUser.name) ? (
-        <div style={{ display: 'flex' }}>
-          {chartsData.map((chartData, index) => (
-            <div key={index} style={{ margin: '0 10px' }}>
-              <h2>{arafatSemester}</h2>
-              <BarChart
-                width={600}
-                height={300}
-                data={
-                  nam.includes(currentUser.name)
-                    ? [
-                        { name: `${a}`, points: chartData.points[0] },
-                        { name: 'avg', points: chartData.avg },
-                        { name: 'highest', points: chartData.highest },
-                      ]
-                    : []
-                }
-                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="points" fill="#8884d8" />
-              </BarChart>
-            </div>
-          ))}
+return (
+  <div>
+      <h2 className="video-watches-title">Quiz</h2>
+      {nam.includes(currentUser.name) ? (
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+          <ResponsiveContainer width="70%" height={300}>
+            <BarChart data={updatedChartsData} margin={{ top: 20, right: 0, left: 0, bottom: 50 }} barCategoryGap={0} barGap={5}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey={(chartData) => `${chartData.name[0].course} - ${chartData.name[0].category}`} tick={{ angle: 0, textAnchor: 'end', dx: 50 }} interval={0} tickLine={false} />
+              <YAxis domain={yAxisDomain} />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="points[0]" fill="#8884d8" name={a} barSize={40}/>
+              <Bar dataKey="highest" fill="#82ca9d" name="Highest Marks" barSize={40}/>
+              <Bar dataKey="avg" fill="#ffc658" name="Average Marks" barSize={40}/>
+            </BarChart>
+          </ResponsiveContainer>
         </div>
       ) : <div></div>}
-      </>
-  );
+    </div>
+);
 };
 
 

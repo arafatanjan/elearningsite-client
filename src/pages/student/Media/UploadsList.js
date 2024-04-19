@@ -80,7 +80,7 @@ const UploadsList = ({ medias}) => {
 
   const sendPlayCountToBackend = async (videoId, studentId, playCount, totalCount) => {
     try {
-      const response = await axios.put(`https://elearningsite-server.onrender.com/updatePlayCount/${studentId}`, {
+      const response = await axios.put(`http://localhost:5000/updatePlayCount/${studentId}`, {
         videoId,
         playCount,
         studentId,
@@ -109,41 +109,44 @@ const UploadsList = ({ medias}) => {
 
     return `${pad(hours)}:${pad(minutes)}:${pad(remainingSeconds)}`;
   };
+  
   return (
-    <Grid container spacing={5}>
-      <Typography variant="h5" fontWeight="bold" gutterBottom style={{ marginBottom: '16px' }}>
-                Total Videos: {totalCount} 
-              </Typography>
-              <br/>
-              <br/>
-      {medias &&
-        medias.map((media) => (
-          <Grid item xs={6} key={media._id}>
-            <Paper elevation={3} style={{ backgroundColor: '#f0f8ff', padding: '16px' }}>
-              <Typography variant="h5" gutterBottom>
-                {media.name}
-              </Typography>
-              {media.videos.map((video) => {
-                const videoId = `${media._id}`;
-                return (
-                  <div key={videoId} style={{ marginBottom: '16px' }}>
-                    <ReactPlayer
-                      url={`https://elearningsite-server.onrender.com${video}`}
-                      controls={true}
-                      width="100%"
-                      onProgress={(progress) => {
-                        setCurrentVideoId(videoId);
-                        handleProgress(progress, videoId);
-                      }}
-                      //onPlay={handleVideoPlay}
-                    />
-                  </div>
-                );
-              })}
-            </Paper>
-          </Grid>
-        ))}
+    <Grid container rowSpacing={6} columnSpacing={{ xs: 1, sm: 2, md: 6 }}>
+    {/* Total Videos Typography */}
+    <Grid item xs={12}>
+      <Typography variant="h5" fontWeight="800" marginTop={2} marginLeft={2} fontStyle="italic" color="primary" gutterBottom>
+        Total Videos: {totalCount}
+      </Typography>
     </Grid>
+
+    {/* Media Items */}
+    {medias &&
+      medias.map((media) => (
+        <Grid item xs={12} sm={6} md={4} key={media._id}>
+          <Paper elevation={3} style={{ backgroundColor: '#f0f8ff', padding: '6px', minHeight: '200px', marginBottom: '20px', marginLeft: '20px', marginRight:'20px'}}>
+            {/* Media Name Typography */}
+            <Typography variant="h6" gutterBottom>
+              {media.name}
+            </Typography>
+            
+            {/* Render Videos */}
+            {media.videos.map((video, index) => {
+              const videoId = `${media._id}-${index}`;
+              return (
+                <div key={videoId} style={{ marginBottom: '16px' }}>
+                  <ReactPlayer
+                    url={`http://localhost:5000${video}`}
+                    controls
+                    width="100%"
+                    onProgress={(progress) => handleProgress(progress, videoId)}
+                  />
+                </div>
+              );
+            })}
+          </Paper>
+        </Grid>
+      ))}
+  </Grid>
   );
 };
 

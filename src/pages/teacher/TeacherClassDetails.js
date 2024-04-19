@@ -11,8 +11,10 @@ import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 const TeacherClassDetails = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
-    const { sclassStudents, loading, error, getresponse } = useSelector((state) => state.sclass);
-    //console.log(sclassStudents);
+    const { sclassStudents, loading, error, getresponse } = useSelector((state) => {
+        console.log(state.sclass); // Logging the entire Redux store state for debugging purposes
+        return state.sclass; // Accessing the 'sclass' slice of the Redux store state
+      });
 
     const { currentUser } = useSelector((state) => state.user);
     //console.log(currentUser);
@@ -33,12 +35,15 @@ const TeacherClassDetails = () => {
     ]
 
     const studentRows = sclassStudents.map((student) => {
+        console.log(student._id);
         return {
             name: student.name,
             rollNum: student.rollNum,
             id: student._id,
         };
+        
     })
+    
 
     const StudentsButtonHaver = ({ row }) => {
         const options = ['Take Attendance', 'Semester Marks', 'Class Progress'];

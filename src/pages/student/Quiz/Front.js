@@ -12,7 +12,7 @@ const Front = () => {
     
 
     // useEffect(() => {
-    //     fetch('https://elearningsite-server.onrender.com/questions')
+    //     fetch('http://localhost:5000/questions')
 
     //         // fetch('services.json')
     //         .then(res => res.json())
@@ -27,7 +27,7 @@ const Front = () => {
         const fetchData = async () => {
             try {
                 // Make a GET request using Axios
-                const response = await axios.get('https://elearningsite-server.onrender.com/questions');
+                const response = await axios.get('http://localhost:5000/questions');
                 
                 // Extract the data from the response
                 const data = response.data;
@@ -49,8 +49,6 @@ const Front = () => {
     return (
         <div>
         <br />
-        
-        
         <div className='service-container ' id="quizes">
             {
                 quizes && quizes?.map((quiz, index) =>( <QuizCard

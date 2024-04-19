@@ -18,6 +18,7 @@ import { AppBar, Drawer } from '../../components/styles';
 import StudentAttendance from '../admin/studentRelated/StudentAttendance';
 import TeacherQuiz from './TeacherQuiz/Trquiz';
 import Quizform from './TeacherQuiz/Quizform';
+import TeacherQuizFront from './TeacherQuiz/TeacherQuizFront';
 import TeacherTutorial from '././TeacherMedia/TeacherTutorial'
 import TeacherClassDetails from './TeacherClassDetails';
 import TeacherComplain from './TeacherComplain';
@@ -26,6 +27,9 @@ import TeacherProfile from './TeacherProfile';
 import TeacherViewStudent from './TeacherViewStudent';
 import StudentExamMarks from '../admin/studentRelated/StudentExamMarks';
 import StudentProgressMarks from '../admin/studentRelated/StudentProgressMarks';
+import QuizResultTable from './TeacherQuiz/QuizResultTable';
+import TeacherEvaluationForm from './TeacherEvaluationForm/TeacherEvaluationForm';
+
 
 const TeacherDashboard = () => {
     const [open, setOpen] = useState(true);
@@ -81,12 +85,15 @@ const TeacherDashboard = () => {
                         <Route path='*' element={<Navigate to="/" />} />
                         <Route path="/Teacher/dashboard" element={<TeacherHomePage />} />
                         <Route path="/Teacher/profile" element={<TeacherProfile />} />
-                        <Route path="/Teacher/:semester/:year/:course/:category" element={<TeacherQuiz />} />
+                        <Route path="/Teacher/:course/:category" element={<TeacherQuiz />} />
                         <Route path="/Teacher/quizform" element={<Quizform />} />
+                        <Route path="/Teacher/quizfront" element={<TeacherQuizFront/>} />
+                        <Route path='/Teacher/quiz/test/resulttable' element={<QuizResultTable/>}/> 
                         <Route path="/Teacher/complain" element={<TeacherComplain />} />
                         <Route path="/Teacher/tutorial" element={<TeacherTutorial/>} />
                         <Route path="/Teacher/class" element={<TeacherClassDetails />} />
                         <Route path="/Teacher/class/student/:id" element={<TeacherViewStudent />} />
+                        <Route path="/Teacher/class/evaluationform" element={<TeacherEvaluationForm />} />
                         <Route path="/Teacher/class/student/attendance/:studentID/:subjectID" element={<StudentAttendance situation="Subject" />} />
                         <Route path="/Teacher/class/student/marks/:studentID/:subjectID" element={<StudentExamMarks situation="Subject" />} />
                         <Route path="/Teacher/class/student/progress/:studentID/:subjectID" element={<StudentProgressMarks situation="Subject" />} />

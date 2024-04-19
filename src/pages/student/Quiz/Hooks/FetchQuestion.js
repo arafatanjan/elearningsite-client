@@ -32,7 +32,7 @@ export const useFetchQestion = () => {
         //     try {
 
         const blogsData = await getServerData(
-          "https://elearningsite-server.onrender.com/questions",
+          "http://localhost:5000/questions",
           (data) => data
         );
 

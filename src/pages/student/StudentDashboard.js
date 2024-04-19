@@ -29,6 +29,8 @@ import Tutorial from './Media/Tutorial';
 import QuizAnalysisSecond from './Anlysis/QuizAnalysisSecond';
 import QuizAnalysisFirst from './Anlysis/QuizAnalysisFirst';
 import Suggestion from './Suggestion/Suggestion';
+import Question from './Quiz/Question';
+import StudentQuizMarks from './Quiz/StudentQuizMarks';
 
 const StudentDashboard = () => {
     const [open, setOpen] = useState(true);
@@ -89,11 +91,9 @@ const StudentDashboard = () => {
                         <Route path="/Student/attendance" element={<ViewStdAttendance />} />
                         <Route path="/Student/quiz" element={<Front />} />
                         <Route path="/Student/tutorial" element={<Tutorial />} />
-                        <Route path="/Student/quiz/:semester/:year/:course/:category" element={<Quiz/>} />
-                        <Route path="/Student/quiz/test/result/:semester/:year/:course/:category" element={<Result></Result>}>
-          </Route>
-          <Route path='/Student/quiz/test/resulttable' element={<ResultTable></ResultTable>}>
-          </Route>
+                        <Route path="/Student/quiz/:course/:category" element={<Question/>} />
+                        <Route path="/Student/quiz/test/result/:course/:category" element={<Result></Result>}></Route>
+                        <Route path="/Student/StudentQuizMarks" element={<StudentQuizMarks />} />
                         <Route path="/Student/complains" element={<StudentComplain />} />
                         <Route path="/Student/analysis" element={<QuizAnalysisFirst />} />
                         <Route path="/Student/suggestion" element={<Suggestion />} />

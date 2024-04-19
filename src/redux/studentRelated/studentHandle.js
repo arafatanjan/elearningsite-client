@@ -11,7 +11,7 @@ export const getAllStudents = (id) => async (dispatch) => {
     dispatch(getRequest());
 
     try {
-        const result = await axios.get(`https://elearningsite-server.onrender.com/Students/${id}`);
+        const result = await axios.get(`http://localhost:5000/Students/${id}`);
         if (result.data.message) {
             dispatch(getFailed(result.data.message));
         } else {
@@ -26,7 +26,7 @@ export const updateStudentFields = (id, fields, address) => async (dispatch) => 
     dispatch(getRequest());
 
     try {
-        const result = await axios.put(`https://elearningsite-server.onrender.com/${address}/${id}`, fields, {
+        const result = await axios.put(`http://localhost:5000/${address}/${id}`, fields, {
             headers: { 'Content-Type': 'application/json' },
         });
         if (result.data.message) {
@@ -42,7 +42,7 @@ export const updateStudentProgressFields = (id, fields, address) => async (dispa
     dispatch(getRequest());
 
     try {
-        const result = await axios.put(`https://elearningsite-server.onrender.com/${address}/${id}`, fields, {
+        const result = await axios.put(`http://localhost:5000/${address}/${id}`, fields, { 
             headers: { 'Content-Type': 'application/json' },
         });
         if (result.data.message) {
@@ -58,11 +58,56 @@ export const updateStudentProgressFields = (id, fields, address) => async (dispa
     }
 }
 
+export const updateStudentQuizFields = (id, fields, address) => async (dispatch) => {
+    dispatch(getRequest());
+    
+    try {
+        // Convert fields to JSON string to ensure serializability
+        const fieldsJson = JSON.stringify(fields);
+
+        const result = await axios.put(`http://localhost:5000/${address}/${id}`, fieldsJson, { 
+            headers: { 'Content-Type': 'application/json' },
+        });
+
+        if (result.data.message) {
+            dispatch(getFailed(result.data.message));
+            console.log(result.data.message)
+        } else {
+            dispatch(stuffDone());
+            console.log("success")
+        }
+    } catch (error) {
+        dispatch(getError(error));
+        console.log(error)
+    }
+}
+
+
+// export const updateStudentQuizFields = (id, fields, address) => async (dispatch) => {
+//     dispatch(getRequest());
+    
+//     try {
+//         const result = await axios.put(`http://localhost:5000/${address}/${id}`, fields, { 
+//             headers: { 'Content-Type': 'application/json' },
+//         });
+//         if (result.data.message) {
+//             dispatch(getFailed(result.data.message));
+//             console.log(result.data.message)
+//         } else {
+//             dispatch(stuffDone());
+//             console.log("success")
+//         }
+//     } catch (error) {
+//         dispatch(getError(error));
+//         console.log(error)
+//     }
+// }
+
 export const removeStuff = (id, address) => async (dispatch) => {
     dispatch(getRequest());
 
     try {
-        const result = await axios.put(`https://elearningsite-server.onrender.com/${address}/${id}`);
+        const result = await axios.put(`http://localhost:5000/${address}/${id}`);
         if (result.data.message) {
             dispatch(getFailed(result.data.message));
         } else {

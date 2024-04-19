@@ -37,10 +37,13 @@ import ChooseSubject from './teacherRelated/ChooseSubject';
 import ShowTeachers from './teacherRelated/ShowTeachers';
 import TeacherDetails from './teacherRelated/TeacherDetails';
 
+import AdminEvaluationForm from './AdminEvaluationForm';
+
 import AddClass from './classRelated/AddClass';
 import ClassDetails from './classRelated/ClassDetails';
 import ShowClasses from './classRelated/ShowClasses';
 import AccountMenu from '../../components/AccountMenu';
+
 
 const AdminDashboard = () => {
     const [open, setOpen] = useState(false);
@@ -118,6 +121,9 @@ const AdminDashboard = () => {
                         <Route path="/Admin/classes" element={<ShowClasses />} />
                         <Route path="/Admin/classes/class/:id" element={<ClassDetails />} />
                         <Route path="/Admin/class/addstudents/:id" element={<AddStudent situation="Class" />} />
+                        
+                        {/* Evaluation */}
+                        <Route path="/Admin/evaluationform" element={<AdminEvaluationForm />} />
 
                         {/* Student */}
                         <Route path="/Admin/addstudents" element={<AddStudent situation="Student" />} />
@@ -126,6 +132,7 @@ const AdminDashboard = () => {
                         <Route path="/Admin/students/student/attendance/:id" element={<StudentAttendance situation="Student" />} />
                         <Route path="/Admin/students/Student/quiz/:id" element={<StudentAttendance situation="Student" />} />
                         <Route path="/Admin/students/student/marks/:id" element={<StudentExamMarks situation="Student" />} />
+                        {/* <Route path="/Admin/students/student/quiz" element={<StudentQuizMarks/>} /> */}
 
                         {/* Teacher */}
                         <Route path="/Admin/teachers" element={<ShowTeachers />} />
