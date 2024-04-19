@@ -1,8 +1,8 @@
 
 import React from "react";
-import Chat from "./ChatBot/Chat";
+
 //import Footer from "./components/Footer.jsx";
-import "./ChatBot/css/App.css";
+
 import { FullPageChat } from "flowise-embed-react"
 import Segmentation from "./Segmentation";
 import avatar from "../../../../src/assets/assistant-avatar.png"
