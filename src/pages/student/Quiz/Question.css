@@ -84,7 +84,7 @@ body{
 
 .checked::before{
   background: var(--primary-color)
-} */
+} 
 
 .option {
   padding: 10px;
