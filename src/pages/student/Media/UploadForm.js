@@ -18,7 +18,7 @@ const UploadForm = ({ getAllMedias }) => {
     formdata.append("name", name);
 
     axios
-      .post(`http://localhost:5000/api/v1/media/create`, formdata)
+      .post(`https://elearningsite-server.onrender.com/api/v1/media/create`, formdata)
       .then((success) => {
         getAllMedias();
         alert("Submitted successfully");

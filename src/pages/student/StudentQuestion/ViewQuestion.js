@@ -23,7 +23,7 @@ const ViewQuestion = () => {
   
     const getAllMedias = () => {
       axios
-        .get(`http://localhost:5000/api/v1/question/all`)
+        .get(`https://elearningsite-server.onrender.com/api/v1/question/all`)
         .then((result) => {
           setMedias(result.data);
         })
@@ -36,8 +36,8 @@ const ViewQuestion = () => {
     };
     console.log(medias);
     const showPdf = (pdf) => {
-         window.open(`http://localhost:5000${pdf}`, "_blank", "noreferrer");
-        //setPdfFile(`http://localhost:5000/files/${pdf}`)
+         window.open(`https://elearningsite-server.onrender.com${pdf}`, "_blank", "noreferrer");
+        //setPdfFile(`https://elearningsite-server.onrender.com/files/${pdf}`)
       };
     return (
       <div style={{ padding: '20px', margin:'10px' }}>

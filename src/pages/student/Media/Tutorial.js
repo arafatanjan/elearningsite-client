@@ -15,7 +15,7 @@ function Tutorial(props) {
 
   const getAllMedias = () => {
     axios
-      .get(`http://localhost:5000/api/v1/media/all`)
+      .get(`https://elearningsite-server.onrender.com/api/v1/media/all`)
       .then((result) => {
         setMedias(result.data);
       })

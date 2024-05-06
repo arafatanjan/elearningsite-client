@@ -33,7 +33,7 @@ const QuizAnalysisFifth = () => {
 
       const getAllResults = () => {
         axios
-          .get(`http://localhost:5000/Students/${currentUser.school._id}`)
+          .get(`https://elearningsite-server.onrender.com/Students/${currentUser.school._id}`)
           .then((result) => {
             setResults(result.data);
           })

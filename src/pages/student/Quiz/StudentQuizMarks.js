@@ -30,7 +30,7 @@ useEffect(() => {
 
 const fetchData = () => {
   // Fetch data from server
-  getServerData('http://localhost:5000/result', (res) => {
+  getServerData('https://elearningsite-server.onrender.com/result', (res) => {
       setData(res);
   });
 };
@@ -172,7 +172,7 @@ export default StudentQuizMarks;
 // //console.log(sclass)
 
 //    useEffect(() => {
-//       getServerData(`http://localhost:5000/result`, (res) => {
+//       getServerData(`https://elearningsite-server.onrender.com/result`, (res) => {
 //           setData(res)
 //        })
 //       }, [])
