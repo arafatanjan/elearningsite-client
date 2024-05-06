@@ -22,7 +22,7 @@ const QuizAnalysisSixth = () => {
     
       const getAllResults = () => {
         axios
-          .get(`https://elearningsite-server.onrender.com/Students/${currentUser.school._id}`)
+          .get(`http://localhost:5000/Students/${currentUser.school._id}`)
           .then((result) => {
             setResults(result.data);
           })
@@ -122,11 +122,11 @@ const QuizAnalysisSixth = () => {
           };
         
           // Call fetchSubjectNames only when chartData or dispatch changes
-          if (chartData.length > 0) {
+          
             fetchSubjectNames();
-          }
+          
         }, []);
-        console.log(subjectsList)
+        //console.log(subjectsList)
 
         // Map over chartData and update subject with subName based on _id match
 const updatedChartsData = chartData.map(data => {
@@ -142,7 +142,7 @@ const updatedChartsData = chartData.map(data => {
   }
 });
 
-console.log(updatedChartsData);
+//console.log(updatedChartsData);
 
     return (
         <div>

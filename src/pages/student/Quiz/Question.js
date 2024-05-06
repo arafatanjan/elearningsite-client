@@ -126,7 +126,7 @@ const Question = () => {
     return (
 
         <div className='container'>
-        <h1 className='title'>Quiz Application</h1>
+        {/* <h1 className='title'>Quiz Application</h1> */}
         <div className='question'>
             <h2 className='text-light'>{queue[trace]?.question}</h2>
             {queue[trace]?.options.map((option, optionIndex) => (

@@ -12,7 +12,7 @@ const MyForm = () => {
   let navigate = useNavigate();
   const { currentUser, userDetails, loading } = useSelector((state) => state.user);
   const course= currentUser.teachSubject; 
-  console.log(course.id);
+  //console.log(currentUser);
 
   const onSubmit = (data) => {
     const url = `/Teacher/${course.id}/${data.category}`;

@@ -3,7 +3,8 @@ import React from "react";
 
 //import Footer from "./components/Footer.jsx";
 
-import { FullPageChat } from "flowise-embed-react"
+//import { FullPageChat } from "flowise-embed-react"
+import { BubbleChat } from 'flowise-embed-react'
 import Segmentation from "./Segmentation";
 import avatar from "../../../../src/assets/assistant-avatar.png"
 
@@ -14,9 +15,7 @@ const Suggestion = () => {
         <>
         <div> <Segmentation/> </div>
         <div style={{ width: '50%', height: '50%' }}>
-        <FullPageChat
-            chatflowid="49089b3e-ea67-46fa-b289-0bba03b1d610"
-            apiHost="https://flowise-22cw.onrender.com"
+        <BubbleChat chatflowid="49089b3e-ea67-46fa-b289-0bba03b1d610" apiHost="https://flowise-22cw.onrender.com"
             theme={{
                 chatWindow: {
                     welcomeMessage: "Hello! Welcome to edubridgebd chatbot",

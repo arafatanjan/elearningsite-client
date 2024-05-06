@@ -29,6 +29,8 @@ import StudentExamMarks from '../admin/studentRelated/StudentExamMarks';
 import StudentProgressMarks from '../admin/studentRelated/StudentProgressMarks';
 import QuizResultTable from './TeacherQuiz/QuizResultTable';
 import TeacherEvaluationForm from './TeacherEvaluationForm/TeacherEvaluationForm';
+import TeacherQuestion from './TeacherQuestion/TeacherQuestion';
+import QuestionForm from './TeacherQuestion/QuestionForm';
 
 
 const TeacherDashboard = () => {
@@ -91,6 +93,8 @@ const TeacherDashboard = () => {
                         <Route path='/Teacher/quiz/test/resulttable' element={<QuizResultTable/>}/> 
                         <Route path="/Teacher/complain" element={<TeacherComplain />} />
                         <Route path="/Teacher/tutorial" element={<TeacherTutorial/>} />
+                        <Route path="/Teacher/questions" element={<TeacherQuestion/>} />
+                        <Route path="/Teacher/questionform" element={<QuestionForm/>} />
                         <Route path="/Teacher/class" element={<TeacherClassDetails />} />
                         <Route path="/Teacher/class/student/:id" element={<TeacherViewStudent />} />
                         <Route path="/Teacher/class/evaluationform" element={<TeacherEvaluationForm />} />

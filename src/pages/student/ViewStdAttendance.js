@@ -13,7 +13,7 @@ import TableChartIcon from '@mui/icons-material/TableChart';
 import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
 import { StyledTableCell, StyledTableRow } from '../../components/styles';
 
-const ViewStdAttendance = () => {
+const  ViewStdAttendance = () => {
     const dispatch = useDispatch();
 
     const [openStates, setOpenStates] = useState({});
@@ -42,9 +42,9 @@ const ViewStdAttendance = () => {
             setSubjectAttendance(userDetails.attendance || []);
         }
     }, [userDetails])
-
+    
     const attendanceBySubject = groupAttendanceBySubject(subjectAttendance)
-
+    //console.log(userDetails.attendance)
     const overallAttendancePercentage = calculateOverallAttendancePercentage(subjectAttendance);
 
     const subjectData = Object.entries(attendanceBySubject).map(([subName, { subCode, present, sessions }]) => {

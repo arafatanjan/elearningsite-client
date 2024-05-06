@@ -51,6 +51,8 @@
 import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 
+const CustomPieChart = ({ data }) => {
+
 const COLORS = ['#326e0a', '#930909'];
 
 const RADIAN = Math.PI / 180;
@@ -58,15 +60,15 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
+    const angle = 30;
     return (
-        <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-            {`${(percent * 100).toFixed(0)}%`}
+        <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central"  transform={`rotate(${angle}, ${x}, ${y})`} fontSize={12}>
+           {`${data[index].name} ${(percent * 100).toFixed(0)}%`}
         </text>
     );
 };
 
-const CustomPieChart = ({ data }) => {
+
     return (
         <ResponsiveContainer width="100%" height={400}>
             <PieChart>

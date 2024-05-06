@@ -44,12 +44,18 @@ const StudentSideBar = () => {
                     </ListItemIcon>
                     <ListItemText primary="Tutorial" />
                 </ListItemButton>
-                <ListItemButton component={Link} to="/Student/complains">
+                <ListItemButton component={Link} to="/Student/viewquestion">
+                    <ListItemIcon>
+                        <ClassOutlinedIcon color={location.pathname.startsWith("/Student/viewquestion") ? 'primary' : 'inherit'} />
+                    </ListItemIcon>
+                    <ListItemText primary="Questionbank" />
+                </ListItemButton>
+                {/* <ListItemButton component={Link} to="/Student/complains">
                     <ListItemIcon>
                         <AnnouncementOutlinedIcon color={location.pathname.startsWith("/Student/complains") ? 'primary' : 'inherit'} />
                     </ListItemIcon>
                     <ListItemText primary="Class" />
-                </ListItemButton>
+                </ListItemButton> */}
                 <ListItemButton component={Link} to="/Student/analysis">
                     <ListItemIcon>
                         <AnnouncementOutlinedIcon color={location.pathname.startsWith("/Student/analysis") ? 'primary' : 'inherit'} />
@@ -61,6 +67,12 @@ const StudentSideBar = () => {
                         <AnnouncementOutlinedIcon color={location.pathname.startsWith("/Student/analysis") ? 'primary' : 'inherit'} />
                     </ListItemIcon>
                     <ListItemText primary="Feedback" />
+                </ListItemButton>
+                <ListItemButton component={Link} to="/Student/finalResult">
+                    <ListItemIcon>
+                        <AnnouncementOutlinedIcon color={location.pathname.startsWith("/Student/finalResult") ? 'primary' : 'inherit'} />
+                    </ListItemIcon>
+                    <ListItemText primary="Result" />
                 </ListItemButton>
             </React.Fragment>
             <Divider sx={{ my: 1 }} />

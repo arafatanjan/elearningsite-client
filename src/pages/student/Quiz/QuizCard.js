@@ -20,7 +20,7 @@ const QuizCard = ({ quiz }) => {
   const { subjectDetails, subjectsList } = useSelector((state) => state.sclass);
   const [subjectID, setsubjectID] = useState();
   const [subjectName, setSubjectName] = useState('');
-  console.log(currentUser.school._id)
+  //console.log(currentUser)
   
 
   useEffect(() => {
@@ -47,23 +47,18 @@ const QuizCard = ({ quiz }) => {
     }
   }, [subjectsList, properties.course]);
 
-  console.log(subjectName);
+  //console.log(subjectName);
 
   if (error) {
     console.log(error);
   }
   
 
-    // console.log(userDetails)
-    // console.log(currentUser)
-    // console.log(subjectDetails)
-    // console.log(subjectsList)
-    // console.log(properties.course)
-
   const handleClick = () => {
     const url = `/Student/quiz/${properties.course}/${properties.category}`;
     navigate(url);
   };
+
 
   return (
     <Grid item xs={12} sm={6} md={3} lg={3}> {/* Adjust these values to control item width */}

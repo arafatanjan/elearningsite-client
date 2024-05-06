@@ -41,23 +41,29 @@ const TeacherSideBar = () => {
                     </ListItemIcon>
                     <ListItemText primary="Quiz" />
                 </ListItemButton>
-                {/* <ListItemButton component={Link} to="/Teacher/quizform">
-                    <ListItemIcon>
-                        <AnnouncementOutlinedIcon color={location.pathname.startsWith("/Teacher/quizform") ? 'primary' : 'inherit'} />
-                    </ListItemIcon>
-                    <ListItemText primary="Quiz" />
-                </ListItemButton> */}
                 <ListItemButton component={Link} to="/Teacher/tutorial">
                     <ListItemIcon>
                         <ClassOutlinedIcon color={location.pathname.startsWith("/Teacher/tutorial") ? 'primary' : 'inherit'} />
                     </ListItemIcon>
                     <ListItemText primary="Tutorial" />
                 </ListItemButton>
-                <ListItemButton component={Link} to="/Teacher/complain">
+                <ListItemButton component={Link} to="/Teacher/questions">
+                    <ListItemIcon>
+                        <ClassOutlinedIcon color={location.pathname.startsWith("/Teacher/questions") ? 'primary' : 'inherit'} />
+                    </ListItemIcon>
+                    <ListItemText primary="Questions" />
+                </ListItemButton>
+                {/* <ListItemButton component={Link} to="/Teacher/complain">
                     <ListItemIcon>
                         <AnnouncementOutlinedIcon color={location.pathname.startsWith("/Teacher/complain") ? 'primary' : 'inherit'} />
-                    </ListItemIcon>
+                    </ListItemIcon>                
                     <ListItemText primary="Class" />
+                </ListItemButton> */}
+                <ListItemButton component={Link} to="/Teacher/class/evaluationform">
+                    <ListItemIcon>
+                        <AnnouncementOutlinedIcon color={location.pathname.startsWith("/Teacher/class/evaluationform") ? 'primary' : 'inherit'} />
+                    </ListItemIcon>
+                    <ListItemText primary="Evaluation Form" />
                 </ListItemButton>
             </React.Fragment>
             <Divider sx={{ my: 1 }} />

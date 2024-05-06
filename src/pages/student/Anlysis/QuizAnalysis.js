@@ -93,7 +93,7 @@ const { currentUser } = useSelector((state) => state.user);
 
   const getAllResults = () => {
     axios
-      .get(`https://elearningsite-server.onrender.com/result`)
+      .get(`http://localhost:5000/result`)
       .then((result) => {
         setResults(result.data);
       })
@@ -182,7 +182,7 @@ if (nam.includes(currentUser.name)) {
 
 //   const getAllResults = () => {
 //     axios
-//       .get(`https://elearningsite-server.onrender.com/result`)
+//       .get(`http://localhost:5000/result`)
 //       .then((result) => {
 //         setResults(result.data);
 //       })

@@ -31,6 +31,8 @@ import QuizAnalysisFirst from './Anlysis/QuizAnalysisFirst';
 import Suggestion from './Suggestion/Suggestion';
 import Question from './Quiz/Question';
 import StudentQuizMarks from './Quiz/StudentQuizMarks';
+import ViewQuestion from './StudentQuestion/ViewQuestion';
+import FinalResult from './Resultcard/FinalResult';
 
 const StudentDashboard = () => {
     const [open, setOpen] = useState(true);
@@ -86,9 +88,9 @@ const StudentDashboard = () => {
                         <Route path='*' element={<Navigate to="/" />} />
                         <Route path="/Student/dashboard" element={<StudentHomePage />} />
                         <Route path="/Student/profile" element={<StudentProfile />} />
-
                         <Route path="/Student/subjects" element={<StudentSubjects />} />
                         <Route path="/Student/attendance" element={<ViewStdAttendance />} />
+                        <Route path="/Student/viewquestion" element={<ViewQuestion/>} />
                         <Route path="/Student/quiz" element={<Front />} />
                         <Route path="/Student/tutorial" element={<Tutorial />} />
                         <Route path="/Student/quiz/:course/:category" element={<Question/>} />
@@ -97,6 +99,7 @@ const StudentDashboard = () => {
                         <Route path="/Student/complains" element={<StudentComplain />} />
                         <Route path="/Student/analysis" element={<QuizAnalysisFirst />} />
                         <Route path="/Student/suggestion" element={<Suggestion />} />
+                        <Route path="/Student/finalResult" element={<FinalResult />} />
 
                         <Route path="/logout" element={<Logout />} />
                     </Routes>

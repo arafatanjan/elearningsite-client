@@ -11,9 +11,6 @@ const QuizAnalysisSecond = () => {
     const { subjectDetails, subjectsList } = useSelector((state) => state.sclass);
   const [subjectID, setsubjectID] = useState();
   const [subjectNames, setSubjectNames] = useState('');
-  //console.log(currentUser.school._id)
-   
-    ////console.log(currentUser.name);
     const [results, setResults] = useState([]);
 
     useEffect(() => {
@@ -24,7 +21,7 @@ const QuizAnalysisSecond = () => {
     
       const getAllResults = () => {
         axios
-          .get(`https://elearningsite-server.onrender.com/result`)
+          .get(`http://localhost:5000/result`)
           .then((result) => {
             setResults(result.data);
           })
@@ -82,13 +79,13 @@ const QuizAnalysisSecond = () => {
         };
       
         // Call fetchSubjectNames only when chartData or dispatch changes
-        if (chartsData.length > 0) {
+        
           fetchSubjectNames();
-        }
+        
       }, []);
       //console.log(subjectsList)
 
-      const updatedChartsData = chartsData.map(data => {
+      const updatedChartsData = chartsData?.map(data => {
         const updatedName = data.name.map(courseInfo => {
           const matchingSubject = subjectsList.find(subject => subject._id === courseInfo.course);
           if (matchingSubject) {
@@ -108,7 +105,62 @@ const QuizAnalysisSecond = () => {
       
       //console.log(updatedChartsData);
      
-      // useEffect(() => {
+     
+      const pointsForArafat = finalArray.flatMap(subarray => 
+        subarray
+          .filter(result => result.username === currentUser.name)
+          .map((result, index) => result.points)
+      );
+      const arafatPoints= pointsForArafat.map((points, index) => (points ))
+      
+
+      const a= nam.includes(currentUser.name) ? currentUser.name : '';
+      const r= chartsData.map((chartData, index) =>chartData.name)
+  
+
+// Configuring Y-axis domain based on the maximum value of 'highest' across all data
+const maxYAxisValue = Math.max(...updatedChartsData.map(chartData => chartData.highest));
+const yAxisDomain = [0, maxYAxisValue + 10]; // Adjusted to provide some padding
+
+//??`${chartData.name[0].course}
+return (
+  <div>
+      <h2 className="video-watches-title">Quiz</h2>
+      {nam.includes(currentUser.name) ? (
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+          <ResponsiveContainer width="70%" height={300}>
+            <BarChart data={updatedChartsData} margin={{ top: 20, right: 0, left: 0, bottom: 50 }} barCategoryGap={0} barGap={5}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis
+            dataKey={(chartData) => {
+              if (chartData.name && chartData.name[0]) {
+                return `${chartData.name[0].course} - ${chartData.name[0].category}`;
+              }
+              return ''; // Return a fallback value if name or name[0] is undefined
+            }}
+            tick={{ angle: -8, textAnchor: 'middle', dx: -50 }}
+            interval={0}
+            tickLine={false}
+          />
+              <YAxis domain={yAxisDomain} />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="points[0]" fill="#8884d8" name={a} barSize={40}/>
+              <Bar dataKey="highest" fill="#82ca9d" name="Highest Marks" barSize={40}/>
+              <Bar dataKey="avg" fill="#ffc658" name="Average Marks" barSize={40}/>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      ) : <div></div>}
+    </div>
+);
+};
+
+
+
+export default QuizAnalysisSecond;
+
+ // useEffect(() => {
       //   const updatedSubjectNames = [];
     
       //   chartsData.forEach((chartItem) => {
@@ -130,13 +182,8 @@ const QuizAnalysisSecond = () => {
       ///console.log(subjectsList);
       ///console.log(subjectNames);
 
-      const pointsForArafat = finalArray.flatMap(subarray => 
-        subarray
-          .filter(result => result.username === currentUser.name)
-          .map((result, index) => result.points)
-      );
-      const arafatPoints= pointsForArafat.map((points, index) => (points ))
-      ///console.log(finalArray);
+ 
+///console.log(finalArray);
       ///console.log(chartsData);
      
       // const updatedChartsData = chartsData.map(data => {
@@ -159,9 +206,7 @@ const QuizAnalysisSecond = () => {
       
       //console.log(updatedChartsData);
 
-      const a= nam.includes(currentUser.name) ? currentUser.name : '';
-      const r= chartsData.map((chartData, index) =>chartData.name)
-      //console.log(r)
+    //console.log(r)
 //     const banglaData = nam.includes(currentUser.name)
 //   ? [
 //       //{ name: 'A', Bangla: studentsData?.student[0].points },
@@ -173,37 +218,3 @@ const QuizAnalysisSecond = () => {
 //   : [];
 // Extracting unique course-category combinations for X-axis labels
 //const xAxisLabels = updatedChartsData.map(chartData => `${chartData?.name[0].course} - ${chartData?.name[0].category}`);
-
-// Configuring Y-axis domain based on the maximum value of 'highest' across all data
-const maxYAxisValue = Math.max(...updatedChartsData.map(chartData => chartData.highest));
-const yAxisDomain = [0, maxYAxisValue + 10]; // Adjusted to provide some padding
-
-return (
-  <div>
-      <h2 className="video-watches-title">Quiz</h2>
-      {nam.includes(currentUser.name) ? (
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          <ResponsiveContainer width="70%" height={300}>
-            <BarChart data={updatedChartsData} margin={{ top: 20, right: 0, left: 0, bottom: 50 }} barCategoryGap={0} barGap={5}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey={(chartData) => `${chartData.name[0].course} - ${chartData.name[0].category}`} tick={{ angle: 0, textAnchor: 'end', dx: 50 }} interval={0} tickLine={false} />
-              <YAxis domain={yAxisDomain} />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="points[0]" fill="#8884d8" name={a} barSize={40}/>
-              <Bar dataKey="highest" fill="#82ca9d" name="Highest Marks" barSize={40}/>
-              <Bar dataKey="avg" fill="#ffc658" name="Average Marks" barSize={40}/>
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-      ) : <div></div>}
-    </div>
-);
-};
-
-
-
-export default QuizAnalysisSecond;
- 
-
-

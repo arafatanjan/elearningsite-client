@@ -46,10 +46,10 @@ const QuestionForm = () => {
     reset();
   };
 
-  // https://elearningsite-server.onrender.com
+  // http://localhost:5000
   const postData = async () => {
     try {
-      const response = await axios.post("https://elearningsite-server.onrender.com/Teacher/quiz", {
+      const response = await axios.post("http://localhost:5000/Teacher/quiz", {
         question,
         answer,
         properties

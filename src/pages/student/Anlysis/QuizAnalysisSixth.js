@@ -26,7 +26,7 @@ const QuizAnalysisSixth = () => {
     
       const getAllResults = () => {
         axios
-          .get(`https://elearningsite-server.onrender.com/Students/${currentUser.school._id}`)
+          .get(`http://localhost:5000/Students/${currentUser.school._id}`)
           .then((result) => {
             setResults(result.data);
           })
@@ -76,22 +76,7 @@ const QuizAnalysisSixth = () => {
 
           //console.log(resultArrayAsArray)
 
-        // const chartsData = Object.entries(resultArray).map(([subject, studentMarks]) => ({
-        //     subject,
-        //     avg: Object.values(studentMarks).reduce((sum, marks) => sum + marks, 0) / Object.keys(studentMarks).length,
-        //     highest: Math.max(...Object.values(studentMarks)),
-        //     points: studentMarks[currentUser.name] || 0,
-        //   }));
-
-        // const chartsData = resultArrayAsArray.map((data, index) => ({
-        //     name: 'Chart ' + (index + 1),
-        //     avg: data.reduce((sum, entry) => sum + entry.points, 0) / data.length,
-        //     highest: Math.max(...data.map(entry => entry.points)),
-        //     points: data.filter(result => result.username === currentUser.name)
-        //     .map((result, index) => result.points),
-        //     //arafatPoints : finalArray.find(student => student.username === currentUser.name)?.points || 0,
-        //   }));
-
+        
         const chartData = resultArrayAsArray.map(subjectData => {
             const studentMarks = subjectData.studentMarks;
             const studentNames = Object.keys(studentMarks);
@@ -127,16 +112,15 @@ const QuizAnalysisSixth = () => {
           };
         
           // Call fetchSubjectNames only when chartData or dispatch changes
-          if (chartData.length > 0) {
+          
             fetchSubjectNames();
-          }
+          
         }, []);
         //console.log(subjectsList)
 
 
 // Map over chartData and update subject with subName based on _id match
-const updatedChartsData = chartData.map(data => {
-  const matchingSubject = subjectsList.find(subject => subject._id === data.subject);
+const updatedChartsData = chartData.map(data => { const matchingSubject = subjectsList.find(subject => subject._id === data.subject);
 
   if (matchingSubject) {
     return {
@@ -147,6 +131,44 @@ const updatedChartsData = chartData.map(data => {
     return data; // No match found, keep original data
   }
 });
+
+    return (
+        <div>
+            <h2 className="video-watches-title">Semester Final Marks</h2>
+        <ResponsiveContainer width="50%" height={250}>
+      <BarChart data={updatedChartsData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="subject" />
+        <YAxis domain={[0, 100]}/>
+        <Tooltip />
+        <Legend />
+        <Bar dataKey="firstStudentMarks" fill="#8884d8" name={`${a}`} barSize={40}/>
+        <Bar dataKey="highestMarks" fill="#82ca9d" name="Highes" barSize={40}/>
+        <Bar dataKey="averageMarks" fill="#ffc658" name="Average" barSize={40}/>
+      </BarChart>
+    </ResponsiveContainer>
+    </div>
+    );
+};
+
+export default QuizAnalysisSixth;
+
+// const chartsData = Object.entries(resultArray).map(([subject, studentMarks]) => ({
+        //     subject,
+        //     avg: Object.values(studentMarks).reduce((sum, marks) => sum + marks, 0) / Object.keys(studentMarks).length,
+        //     highest: Math.max(...Object.values(studentMarks)),
+        //     points: studentMarks[currentUser.name] || 0,
+        //   }));
+
+        // const chartsData = resultArrayAsArray.map((data, index) => ({
+        //     name: 'Chart ' + (index + 1),
+        //     avg: data.reduce((sum, entry) => sum + entry.points, 0) / data.length,
+        //     highest: Math.max(...data.map(entry => entry.points)),
+        //     points: data.filter(result => result.username === currentUser.name)
+        //     .map((result, index) => result.points),
+        //     //arafatPoints : finalArray.find(student => student.username === currentUser.name)?.points || 0,
+        //   }));
+
 
 //console.log(updatedChartsData);
       // useEffect(() => {
@@ -186,28 +208,3 @@ const updatedChartsData = chartData.map(data => {
       //   console.log('subjectsList:', subjectsList);
       //   console.log('subjectNames:', subjectNames);
       // }, [subjectsList, subjectNames]);
-
-      
-
-
-
-    return (
-        <div>
-            <h2 className="video-watches-title">Semester Final Marks</h2>
-        <ResponsiveContainer width="50%" height={250}>
-      <BarChart data={updatedChartsData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="subject" />
-        <YAxis domain={[0, 100]}/>
-        <Tooltip />
-        <Legend />
-        <Bar dataKey="firstStudentMarks" fill="#8884d8" name={`${a}`} barSize={40}/>
-        <Bar dataKey="highestMarks" fill="#82ca9d" name="Highes" barSize={40}/>
-        <Bar dataKey="averageMarks" fill="#ffc658" name="Average" barSize={40}/>
-      </BarChart>
-    </ResponsiveContainer>
-    </div>
-    );
-};
-
-export default QuizAnalysisSixth;

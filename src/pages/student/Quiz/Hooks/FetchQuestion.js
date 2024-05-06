@@ -26,14 +26,14 @@ export const useFetchQestion = () => {
         // let question = await data;
         //  const q=await getServerData(`http://localhost:8080/api/questions`,(data)=> data);
         //  console.log(q)
-        //http://localhost:5000
-        //const [{question, answer}]=await getServerData(`https://elearningsite-server.onrender.com/questions`,(data)=> data);
+        //https://elearningsite-server.onrender.com
+        //const [{question, answer}]=await getServerData(`http://localhost:5000/questions`,(data)=> data);
         //console.log({question, answer})
         // async function fetchData() {
         //     try {
 
         const blogsData = await getServerData(
-          "https://elearningsite-server.onrender.com/questions",
+          "http://localhost:5000/questions",
           (data) => data
         );
 
@@ -55,7 +55,7 @@ export const useFetchQestion = () => {
            item?.properties?.category === category
         
         );
-        console.log(blogdata);
+        //console.log(blogdata);
         // setLatestdata(blogdata)
          const [{question, answer}]= blogdata;
 

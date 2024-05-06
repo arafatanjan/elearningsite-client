@@ -16,11 +16,11 @@ const QuizAnalysisEighth = () => {
 
       
 
-      //https://elearningsite-server.onrender.com
+      //http://localhost:5000
     
       const getAllResults = () => {
         axios
-          .get(`https://elearningsite-server.onrender.com/students/PlayCount/${currentUser._id}`)
+          .get(`http://localhost:5000/students/PlayCount/${currentUser._id}`)
           .then((result) => {
             setResults(result.data);
           })
@@ -50,6 +50,7 @@ const QuizAnalysisEighth = () => {
       // Calculate average and highest percentage
       const averagePercentage = percentageData.reduce((sum, student) => sum + student.percentage, 0) / percentageData.length;
       const highestPercentage = Math.max(...percentageData.map(student => student.percentage));
+      
     
       // Prepare data for the chart
       const chartData = [
@@ -58,7 +59,15 @@ const QuizAnalysisEighth = () => {
         { label: 'Highest', percentage: highestPercentage },
       ];
 
-    return (
+      const renderTooltipContent = (value, name, props) => {
+        return (
+          <div className="custom-tooltip">
+            <p className="label">{`${name} : ${value}%`}</p>
+          </div>
+        );
+      };
+    
+      return (
         <>
         <div>
         <h2 className="video-watches-title">Video Watches</h2>
@@ -68,7 +77,7 @@ const QuizAnalysisEighth = () => {
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="label" />
         <YAxis />
-        <Tooltip />
+        <Tooltip content={renderTooltipContent}/>
         <Legend />
         <Bar dataKey="percentage" fill="#140302" name="in Percentage" barSize={40} barGap={0}>
           {chartData.map((entry, index) => (

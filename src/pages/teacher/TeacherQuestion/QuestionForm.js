@@ -9,36 +9,41 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import LinearProgress from '@mui/material/LinearProgress';
 import { BottomNavigation, BottomNavigationAction, Paper, Table, TableBody, TableHead} from '@mui/material';
 import { StyledTableCell, StyledTableRow } from '../../../components/styles';
+import { useDispatch, useSelector } from 'react-redux';
 
-const TeacherUploadForm = ({ getAllMedias }) => {
-  const [name, setName] = useState('');
-  const [semester, setSemester] = useState('');
-  const [year, setYear] = useState('');
+const QuestionForm = () => {
+    const { userDetails, currentUser, response } = useSelector((state) => state.user);
+    const [name, setName] = useState('');
+
   const [course, setCourse] = useState('');
   const [category, setCategory] = useState('');
-  const [videos, setVideos] = useState([]);
+  //const [questions, setQuestions] = useState([]);
+  const [pdfs, setPdfs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [medias, setMedias] = useState([]);
+  //console.log('userDetails', userDetails);
+  console.log('currentUser', currentUser.teachSubject._id);
   
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      setLoading(true);
+  
+      try {
+        let formData = new FormData();
+      for (let key in pdfs) {
+        formData.append('pdfs', pdfs[key]);
+      }  
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-
-    try {
-      let formData = new FormData();
-      for (let key in videos) {
-        formData.append('videos', videos[key]);
-      }     
-
-    formData.append('name', name);
-    formData.append('course', course); 
-    formData.append('category', category); 
-    console.log('formData', formData);
-      const response = await axios.post(`http://localhost:5000/api/v1/media/create`, formData);
-
-      getAllMedias();
+      //formData.append('pdf', questions);
+      formData.append('name', name);
+      formData.append('course', course); 
+      formData.append('category', category); 
+      formData.append('teachSubjectId', currentUser.teachSubject._id); 
+      console.log('formData', formData);
+        const response = await axios.post(`http://localhost:5000/api/v1/question/create`, formData);
+  
+        //getAllMedias();
       alert('Submitted successfully');
       console.log('Server response:', response.data);
     } 
@@ -50,30 +55,11 @@ const TeacherUploadForm = ({ getAllMedias }) => {
     }
   };
 
-  useEffect(() => {
-    //console.log('o') 
-    AllMedias();
-  }, []);
-
-  const AllMedias = () => {
-    axios
-      .get(`http://localhost:5000/api/v1/media/all`)
-      .then((result) => {
-        setMedias(result.data);
-      })
-      .catch((error) => {
-        setMedias([]);
-        console.log(error);
-        alert("Error happened!");
-      });
-  };
-  //console.log(medias) 
-
-  return (
-    <>
+    return (
+        <div>         
     <Container component="main" maxWidth="xs">
       <Typography variant="h5" align="center" gutterBottom>
-        Upload Media
+        Upload Questions
       </Typography>
       <form encType="multipart/form-data" onSubmit={handleSubmit}>
         <TextField
@@ -113,8 +99,8 @@ const TeacherUploadForm = ({ getAllMedias }) => {
               </InputAdornment>
             ),
           }}
-          accept=".mp4, .mkv"
-          onChange={(e) => setVideos(e.target.files)}
+          accept=".pdf"
+          onChange={(e) => setPdfs(e.target.files)}
         />
 
         {loading && <LinearProgress style={{ margin: '16px 0' }} />}
@@ -132,42 +118,9 @@ const TeacherUploadForm = ({ getAllMedias }) => {
         </Button>
       </form>
       </Container>
-      <br/>
-      <br/>
-      <br/>
-      <>
-      <Container>
-                <Typography variant="h4" align="center" gutterBottom>
-                    Uploaded Videos
-                </Typography>
-                <Table>
-                    <TableHead>
-                        <StyledTableRow>
-                            <StyledTableCell>Course</StyledTableCell>
-                            <StyledTableCell>Category</StyledTableCell>
-                            <StyledTableCell>Tittle</StyledTableCell>
-                        </StyledTableRow>
-                    </TableHead>
-                    <TableBody>
-                        {medias.map((result, index) => {
-                            if (!result.name) {
-                                return null;
-                            }
-                            return (
-                                <StyledTableRow key={index}>
-                                    
-                                    <StyledTableCell>{result.course}</StyledTableCell>
-                                    <StyledTableCell>{result.category}</StyledTableCell>
-                                    <StyledTableCell>{result.name}</StyledTableCell>
-                                </StyledTableRow>
-                            );
-                        })}
-                    </TableBody>
-                </Table>
-                </Container>
-            </>
-    </>
-  );
+      
+        </div>
+    );
 };
 
-export default TeacherUploadForm;
+export default QuestionForm;

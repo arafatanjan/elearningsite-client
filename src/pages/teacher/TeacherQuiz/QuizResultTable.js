@@ -5,7 +5,7 @@ const QuizResultTable = () => {
     const [data, setData] = useState([])
 
     useEffect(() => {
-       getServerData(`https://elearningsite-server.onrender.com/result`, (res) => {
+       getServerData(`http://localhost:5000/result`, (res) => {
            setData(res)
         })
     }, [])
