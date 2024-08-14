@@ -16,11 +16,11 @@ const QuizAnalysisEighth = () => {
 
       
 
-      //http://localhost:5000
+      //https://elearningsite-server.onrender.com
     
       const getAllResults = () => {
         axios
-          .get(`http://localhost:5000/students/PlayCount/${currentUser._id}`)
+          .get(`https://elearningsite-server.onrender.com/students/PlayCount/${currentUser._id}`)
           .then((result) => {
             setResults(result.data);
           })

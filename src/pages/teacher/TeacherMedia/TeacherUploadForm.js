@@ -36,7 +36,7 @@ const TeacherUploadForm = ({ getAllMedias }) => {
     formData.append('course', course); 
     formData.append('category', category); 
     console.log('formData', formData);
-      const response = await axios.post(`http://localhost:5000/api/v1/media/create`, formData);
+      const response = await axios.post(`https://elearningsite-server.onrender.com/api/v1/media/create`, formData);
 
       getAllMedias();
       alert('Submitted successfully');
@@ -57,7 +57,7 @@ const TeacherUploadForm = ({ getAllMedias }) => {
 
   const AllMedias = () => {
     axios
-      .get(`http://localhost:5000/api/v1/media/all`)
+      .get(`https://elearningsite-server.onrender.com/api/v1/media/all`)
       .then((result) => {
         setMedias(result.data);
       })

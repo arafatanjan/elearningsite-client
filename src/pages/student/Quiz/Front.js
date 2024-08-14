@@ -17,7 +17,7 @@ const Front = () => {
         
         const fetchData = async () => {
             try {              
-                const response = await axios.get('http://localhost:5000/questions');                      
+                const response = await axios.get('https://elearningsite-server.onrender.com/questions');                      
                 const data = response.data;             
                 setQuizes(data);
                 //  console.log(data);

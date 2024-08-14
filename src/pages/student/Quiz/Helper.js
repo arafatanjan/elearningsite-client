@@ -27,7 +27,7 @@ export async function getServerData(url, callback){
      return callback ? callback(data) : data;
 }
 
- getServerData('http://localhost:5000/result')
+ getServerData('https://elearningsite-server.onrender.com/result')
 
 
 /** post server data */

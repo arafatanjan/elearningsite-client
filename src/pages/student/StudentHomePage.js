@@ -39,7 +39,7 @@ const StudentHomePage = () => {
         const fetchData = async () => {
             try {
                 // Make a GET request using Axios
-                const response = await axios.get('http://localhost:5000/questions');
+                const response = await axios.get('https://elearningsite-server.onrender.com/questions');
                 
                 // Extract the data from the response
                 const data = response.data;
