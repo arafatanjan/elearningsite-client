@@ -149,7 +149,7 @@ const ChooseUser = ({ visitor }) => {
             </div>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-          <StyledPaperText elevation={2}>
+          <StyledPaperText elevation={3}>
                 {/* <Box mb={2}>
                   <AccountCircle fontSize="large" />
                 </Box> */}
