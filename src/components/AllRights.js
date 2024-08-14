@@ -9,7 +9,7 @@ const AllRights = () => {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '100vh', // Ensure the content takes at least the full viewport height
+        //minHeight: '100vh', // Ensure the content takes at least the full viewport height
       }}
     >
       {/* ... (your existing component content) */}

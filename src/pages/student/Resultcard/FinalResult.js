@@ -27,7 +27,7 @@ const [comment, setComment] = useState();
 useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`https://elearningsite-server.onrender.com/Student/suggestion/${currentUser.sclassName._id}`);
+        const response = await axios.get(`http://localhost:5000/Student/suggestion/${currentUser.sclassName._id}`);
         const data = response.data;
         setDataSet(data)
         ////console.log('Data:', data);

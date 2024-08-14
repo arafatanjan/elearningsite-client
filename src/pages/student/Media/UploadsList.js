@@ -80,7 +80,7 @@ const UploadsList = ({ medias}) => {
 
   const sendPlayCountToBackend = async (videoId, studentId, playCount, totalCount) => {
     try {
-      const response = await axios.put(`https://elearningsite-server.onrender.com/updatePlayCount/${studentId}`, {
+      const response = await axios.put(`http://localhost:5000/updatePlayCount/${studentId}`, {
         videoId,
         playCount,
         studentId,
@@ -135,7 +135,7 @@ const UploadsList = ({ medias}) => {
               return (
                 <div key={videoId} style={{ marginBottom: '16px' }}>
                   <ReactPlayer
-                    url={`https://elearningsite-server.onrender.com${video}`}
+                    url={`http://localhost:5000${video}`}
                     controls
                     width="100%"
                     onProgress={(progress) => handleProgress(progress, videoId)}

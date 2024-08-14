@@ -143,21 +143,7 @@ const LoginPage = ({ role }) => {
                         </Typography>
                         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 2 }}>
                             {role === "Student" ? (
-                                <>
-                                    <TextField
-                                        margin="normal"
-                                        required
-                                        fullWidth
-                                        id="rollNumber"
-                                        label="Enter your Roll Number"
-                                        name="rollNumber"
-                                        autoComplete="off"
-                                        type="number"
-                                        autoFocus
-                                        error={rollNumberError}
-                                        helperText={rollNumberError && 'Roll Number is required'}
-                                        onChange={handleInputChange}
-                                    />
+                                <>                                 
                                     <TextField
                                         margin="normal"
                                         required
@@ -169,6 +155,20 @@ const LoginPage = ({ role }) => {
                                         autoFocus
                                         error={studentNameError}
                                         helperText={studentNameError && 'Name is required'}
+                                        onChange={handleInputChange}
+                                    />
+                                     <TextField
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="rollNumber"
+                                        label="Enter your Roll Number"
+                                        name="rollNumber"
+                                        autoComplete="off"
+                                        type="number"
+                                        autoFocus
+                                        error={rollNumberError}
+                                        helperText={rollNumberError && 'Roll Number is required'}
                                         onChange={handleInputChange}
                                     />
                                 </>

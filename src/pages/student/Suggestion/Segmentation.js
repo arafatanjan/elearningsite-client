@@ -28,7 +28,7 @@ const [remarkArray, setRemarkArray] = useState([]);
 useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`https://elearningsite-server.onrender.com/Student/suggestion/${currentUser.sclassName._id}`);
+        const response = await axios.get(`http://localhost:5000/Student/suggestion/${currentUser.sclassName._id}`);
         const data = response.data;
         setDataSet(data)
         //console.log('Data:', data);
@@ -286,7 +286,7 @@ const foundStudent = transformedData.filter(student => student.Student_id === cu
 
 const getAllResults = () => {
   axios
-    .get(`https://elearningsite-server.onrender.com/students/PlayCount/${currentUser._id}`)
+    .get(`http://localhost:5000/students/PlayCount/${currentUser._id}`)
     .then((result) => {
       setResults(result.data);
     })

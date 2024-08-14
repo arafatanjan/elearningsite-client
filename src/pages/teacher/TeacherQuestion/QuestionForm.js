@@ -41,7 +41,7 @@ const QuestionForm = () => {
       formData.append('category', category); 
       formData.append('teachSubjectId', currentUser.teachSubject._id); 
       console.log('formData', formData);
-        const response = await axios.post(`https://elearningsite-server.onrender.com/api/v1/question/create`, formData);
+        const response = await axios.post(`http://localhost:5000/api/v1/question/create`, formData);
   
         //getAllMedias();
       alert('Submitted successfully');

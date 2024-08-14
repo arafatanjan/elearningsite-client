@@ -13,6 +13,8 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../redux/userRelated/userHandle';
 import Popup from '../components/Popup';
+import { Link } from "react-router-dom";
+import AllRights from "../components/AllRights";
 
 const ChooseUser = ({ visitor }) => {
   const dispatch = useDispatch()
@@ -83,6 +85,7 @@ const ChooseUser = ({ visitor }) => {
   }, [status, currentRole, navigate, currentUser]);
 
   return (
+    <>
     <StyledContainer>
       <Container>
         <Grid container spacing={2} justifyContent="center">
@@ -101,32 +104,95 @@ const ChooseUser = ({ visitor }) => {
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <StyledPaper elevation={3}>
-              <div onClick={() => navigateHandler("Student")}>
+              <div onClick={() => navigateHandler("Teacher")}>
                 <Box mb={2}>
                   <School fontSize="large" />
                 </Box>
                 <StyledTypography>
-                  Student
-                </StyledTypography>
-                Login as a student to explore course materials and assignments.
-              </div>
-            </StyledPaper>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <StyledPaper elevation={3}>
-              <div onClick={() => navigateHandler("Teacher")}>
-                <Box mb={2}>
-                  <Group fontSize="large" />
-                </Box>
-                <StyledTypography>
-                  Teacher
+                 Teacher
                 </StyledTypography>
                 Login as a teacher to create courses, assignments, and track student progress.
               </div>
             </StyledPaper>
           </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <StyledPaper elevation={3}>
+              <div onClick={() => navigateHandler("Student")}>
+                <Box mb={2}>
+                  <Group fontSize="large" />
+                </Box>
+                <StyledTypography>
+                Student
+                </StyledTypography>
+                Login as a student to explore course materials and assignments.
+              </div>
+            </StyledPaper>
+          </Grid>
         </Grid>
+        <br />
+        <Grid container spacing={2} justifyContent="center">
+          <Grid item xs={12} sm={6} md={4}>
+            <div>
+              <StyledPaperText elevation={3}>
+                {/* <Box mb={2}>
+                  <AccountCircle fontSize="large" />
+                </Box> */}
+                <StyledTypography>
+                <p>ID: uiu@gmail.com</p>
+                <p>Password: 123456</p>
+                </StyledTypography>
+               <p><span>=</span> Admin can create classes, subjects, teachers, students.</p>
+               <p><span>=</span> Admin can assign teachers and students to subjects and particular classes.</p>
+               <p><span>=</span>Admin can circulate notices.</p>
+               <p><span>=</span>Admin can make evaluation setup form.</p>
+              </StyledPaperText>
+            </div>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+          <StyledPaperText elevation={2}>
+                {/* <Box mb={2}>
+                  <AccountCircle fontSize="large" />
+                </Box> */}
+                <StyledTypography>
+                <p>ID: rabbi@uiu.com</p>
+                <p>Password: Nothing69</p>
+                </StyledTypography>
+                <br/>
+               <p><span>=</span> Teachers can take attendance and provide examination and class progress marks.</p>
+               <p><span>=</span> Teachers can upload study materials i.e video tutorials, the questionnaires, set quizzes  </p>
+              
+              </StyledPaperText>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+          <StyledPaperText elevation={3}>
+                {/* <Box mb={2}>
+                  <AccountCircle fontSize="large" />
+                </Box> */}
+                <StyledTypography>
+                <p>Name: Md Anjan</p>
+                <p>Roll: 2</p>
+                <p>Password: Nothing69</p>
+                </StyledTypography>
+               <p><span>=</span>Students can attend quizzes, access to notices, video lessons, questionnaires, result card and automatic feedback. </p>
+               <p><span>=</span>Students can view attendance and performance comparison in graph format.</p>
+               
+              </StyledPaperText>
+              
+          </Grid>
+        </Grid>
+        <br />
+       <div style={{ textAlign: 'center', margin: '20px' }}>
+        <StyledText>
+          
+        Want to start new?{" "}
+        <Link to="/Adminregister" style={{ color: "#550080" }}>
+          Sign up
+        </Link>
+        
+      </StyledText>
+      </div>
       </Container>
+      
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={loader}
@@ -136,6 +202,8 @@ const ChooseUser = ({ visitor }) => {
       </Backdrop>
       <Popup message={message} setShowPopup={setShowPopup} showPopup={showPopup} />
     </StyledContainer>
+    <AllRights/>
+    </>
   );
 };
 
@@ -161,7 +229,24 @@ const StyledPaper = styled(Paper)`
     color:white;
   }
 `;
+const StyledPaperText = styled(Paper)`
+  padding: 20px;
+  text-align: left;
+  background-color: #1f1f38;
+  color:rgba(255, 255, 255, 0.6);
+  }
+`;
 
 const StyledTypography = styled.h2`
   margin-bottom: 10px;
+`;
+
+const StyledText = styled.span`
+  /* color: #550080; */
+  background-color: #f5f5f5;
+   
+  margin-top: 30px;
+  margin-bottom: 30px;
+  letter-spacing: normal;
+  line-height: normal;
 `;

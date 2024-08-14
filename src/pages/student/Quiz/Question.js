@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState , useRef} from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-// import data from './Data';
- import "./Question.css";
-
+import "./Question.css";
 /** Custom Hook */
 import { useFetchQestion } from '../Quiz/Hooks/FetchQuestion';
 // import {updateResultAction} from '../../redux/reducers/resultReducer'
@@ -14,32 +12,91 @@ import {PushAnswer}  from '../Quiz/Hooks/setResult'
 import { Navigate } from 'react-router-dom';
 import { Container, Typography, Radio, FormControlLabel, Button, Grid } from '@mui/material';
 import StudentQuizMarks from './StudentQuizMarks';
+import { faStopwatch } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 const Question = () => {
+    const time = 10;
     const [selectedOption, setSelectedOption] = useState(null);
     const [selectedOptions, setSelectedOptions] = useState({});
-    const [chec, setChec] = useState();
     const [check, setCheck] = useState(undefined);
     const [checked, setChecked] = useState(undefined);
+    const [timer, setTimer]= useState(time);
+    const [parentTimer, setParentTimer]= useState(time);
+    const [navigate, setNavigate] = useState(false);
+    const intervalRef = useRef();
     // const [selectedValue, setSelectedValue] = React.useState('a');
     const [{ isLoading, apiData, serverError}] = useFetchQestion();
     // const questions = data[0];
      const question = useSelector(state => state.question.queue[state.question.trace])
      const  trace  = useSelector(state => state.question.trace);
      const result = useSelector(state => state.result.result);
-      const dispatch = useDispatch()
+    const dispatch = useDispatch()
 
-      const { queue } = useSelector(state => state.question);
-     const {  course, category } = useParams({});
+    const { queue } = useSelector(state => state.question);
+    const {  course, category } = useParams({});
      //console.log(result)
 
-    useEffect (()=> {
-        //console.log(checked);
-        //  console.log(serverError)
-         dispatch(updateResult({ trace, checked}))
-         //setChecked(undefined);
-    },[checked])
+     const startTimer = () => {
+        clearInterval(intervalRef.current);
+        setTimer(time);
+        intervalRef.current = setInterval(() => {
+            setTimer((currentTime) => {
+                if (currentTime === 0) {
+                    clearInterval(intervalRef.current);
+                    return 0;
+                }
+                return currentTime - 1;
+            });
+        }, 1000);
+    };
+
+    useEffect(() => {
+        startTimer();
+        return () => {
+            clearInterval(intervalRef.current);
+        };
+    }, []);
+
+    useEffect(() => {
+        setParentTimer(timer);
+        if (timer === 0) {
+            setNavigate(true);
+        }
+    }, [timer]);
+
+    // if (navigate) {
+    //     return <Navigate to={`/Student/quiz/test/result/${course}/${category}`} replace={true} />;
+    // }
+
+// useEffect(() => {
+//     if (timer ===0) {
+//         return (
+//             <>
+              
+//               {/* Redirect or navigate to the desired URL */}
+              
+//               <Navigate to={`/Student/quiz/test/result/${course}/${category}`} replace={true} />
+//             </>
+//           );  
+//     }
+// })
+// useEffect (()=> {
+//     //console.log(checked);
+//     //  console.log(serverError)
+//      dispatch(updateResult({ trace, checked}))
+//      //setChecked(undefined);
+// },[checked])
+
+useEffect(() => {
+    // Check if 'checked' is defined and perform your logic
+    console.log(checked);
+    if (checked !== undefined) {
+        dispatch(updateResult({ trace, checked }));
+        //setChecked(undefined);
+    }
+}, [checked, dispatch, trace]);
 
     // function onSelect(i) {
     //      console.log(i);
@@ -52,8 +109,6 @@ const Question = () => {
     //     console.log(checked);
         
     // }
-
-    
 
     const handleOptionSelect = (questionIndex, optionIndex) => {
         setSelectedOptions(prevState => ({
@@ -78,21 +133,16 @@ const Question = () => {
     //setChecked(undefined);
 
     function onNext(){
-        // console.log('OnNext Click')
-       
         //console.log(trace);
         if(trace < queue.length){
             /** increase the trace value by one using MoveNextAction */
             dispatch(MoveNextQuestion());
-            
-            
-            // dispatch(PushAnswer(check));
+                      
              /** insert a new result in the array.  */
             if(result.length <= trace){
                 dispatch(PushAnswer(check))
                 
-            }
-        
+            }      
     }  
     setChecked(undefined);
 }
@@ -106,18 +156,16 @@ const Question = () => {
          }
          }
         
-     
-
     /** finished exam after the last question */
    
-     if(result.length && result.length >= queue.length){
+     if(navigate || result.length && result.length >= queue.length){
         //const url = `/Student/quiz/:semester/:year/:course/:category`;
         //navigate(url);
         return (
             <>
               
               {/* Redirect or navigate to the desired URL */}
-              {/* For example, using react-router's <Navigate> component */}
+              
               <Navigate to={`/Student/quiz/test/result/${course}/${category}`} replace={true} />
             </>
           );  
@@ -127,6 +175,15 @@ const Question = () => {
 
         <div className='container'>
         {/* <h1 className='title'>Quiz Application</h1> */}
+         <div className='flex gap-2 items-center'>
+            <FontAwesomeIcon
+            className='text-green-700'
+            width={20}
+            height={20}
+            icon={faStopwatch}
+            />
+            <span>00:00:{parentTimer}</span>
+        </div> 
         <div className='question'>
             <h2 className='text-light'>{queue[trace]?.question}</h2>
             {queue[trace]?.options.map((option, optionIndex) => (
@@ -144,10 +201,6 @@ const Question = () => {
             <button className='btn next' onClick={onNext}>Next</button>
         </div>
     </div>
-
-      
-
-
     );
 };
 

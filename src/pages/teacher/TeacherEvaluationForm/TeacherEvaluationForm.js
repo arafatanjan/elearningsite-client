@@ -51,7 +51,7 @@ const TeacherEvaluationForm  = ({ situation }) => {
 
     const getAllStudentdata = () => {
         axios
-          .get(`https://elearningsite-server.onrender.com/teacher/student/getAllStudent`)
+          .get(`http://localhost:5000/teacher/student/getAllStudent`)
           .then((result) => {
             setResults(result.data);
           })
@@ -259,7 +259,7 @@ console.log(updatedFilteredStudents);
                 }
             };
         
-            axios.post('https://elearningsite-server.onrender.com/Teacher/class/evaluationform', updatedFilteredStudents, config)
+            axios.post('http://localhost:5000/Teacher/class/evaluationform', updatedFilteredStudents, config)
                 .then(response => {
                     // Handle successful response
                     console.log('Server response:', response.data);

@@ -10,8 +10,10 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Popup from '../../../components/Popup';
+import { useDispatch, useSelector } from 'react-redux';
 
 const QuestionForm = () => {
+  const { userDetails, currentUser, loading, response, error }  = useSelector((state) => state.user);
   const { handleSubmit, control, register, reset } = useForm({
     defaultValues: {
       question: '',
@@ -26,6 +28,7 @@ const QuestionForm = () => {
   const [properties, setProperties] = useState({});
   const [message, setMessage] = useState("");
   const [showPopup, setShowPopup] = useState(false);
+  console.log(currentUser.teachSclass)
 
   const onSubmit = (data) => {
     const newQuestion = {
@@ -38,7 +41,7 @@ const QuestionForm = () => {
     const newAnswer = parseFloat(data.answer);
     setAnswer([...answer, newAnswer]);
 
-    setProperties({ course: course, category: category });
+    setProperties({ course: course, category: category, class: currentUser.teachSclass });
     console.log(properties);
     //  console.log(question);
     // console.log(answer);
@@ -46,10 +49,10 @@ const QuestionForm = () => {
     reset();
   };
 
-  // https://elearningsite-server.onrender.com
+  // http://localhost:5000
   const postData = async () => {
     try {
-      const response = await axios.post("https://elearningsite-server.onrender.com/Teacher/quiz", {
+      const response = await axios.post("http://localhost:5000/Teacher/quiz", {
         question,
         answer,
         properties

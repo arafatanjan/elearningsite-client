@@ -52,7 +52,7 @@ const Result = () => {
         dispatch(resetAllAction());
         dispatch(resetResultAction());
         setShowQuizMarks(true); // Set showQuizMarks to true to render StudentQuizMarks
-        //navigate('/Student/quiz');
+        navigate('/Student/quiz');
   }
 
     

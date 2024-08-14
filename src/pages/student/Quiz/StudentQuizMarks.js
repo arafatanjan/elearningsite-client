@@ -30,7 +30,7 @@ useEffect(() => {
 
 const fetchData = () => {
   // Fetch data from server
-  getServerData('https://elearningsite-server.onrender.com/result', (res) => {
+  getServerData('http://localhost:5000/result', (res) => {
       setData(res);
   });
 };
@@ -108,7 +108,6 @@ const groupDataByStudentID = (rawData) => {
 };
 
 const calculateAverages = (groupedData) => {
-  // Placeholder function to calculate averages (replace with your logic)
   const averages = [];
   for (const studentID in groupedData) {
       const courses = {};
@@ -125,7 +124,7 @@ const calculateAverages = (groupedData) => {
           const averagePoints = totalPoints / courses[course].length;
           averageCoursePoints[course] = averagePoints;
       }
-      averages.push({ student_id: studentID, average: averageCoursePoints.toFixed(2) });
+      averages.push({ student_id: studentID, average: averageCoursePoints?.toFixed(2) });
       console.log(averages)
   }
   return averages;
@@ -172,7 +171,7 @@ export default StudentQuizMarks;
 // //console.log(sclass)
 
 //    useEffect(() => {
-//       getServerData(`https://elearningsite-server.onrender.com/result`, (res) => {
+//       getServerData(`http://localhost:5000/result`, (res) => {
 //           setData(res)
 //        })
 //       }, [])
