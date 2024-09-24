@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, Grid, Box, Typography, Paper, Checkbox, FormControlLabel, TextField, CssBaseline, IconButton, InputAdornment, CircularProgress, Backdrop } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import bgpic from "../assets/designlogin.jpg"
+import bgpic from "../assets/designlogin.png"
 import { LightPurpleButton } from '../components/buttonStyles';
 import styled from 'styled-components';
 import { loginUser } from '../redux/userRelated/userHandle';
@@ -156,7 +156,9 @@ const LoginPage = ({ role }) => {
                                         error={studentNameError}
                                         helperText={studentNameError && 'Name is required'}
                                         onChange={handleInputChange}
+                                        placeholder='Arafat Anjan'
                                     />
+                                
                                      <TextField
                                         margin="normal"
                                         required
@@ -170,9 +172,10 @@ const LoginPage = ({ role }) => {
                                         error={rollNumberError}
                                         helperText={rollNumberError && 'Roll Number is required'}
                                         onChange={handleInputChange}
+                                        placeholder='1'
                                     />
                                 </>
-                            ) : (
+                            ) : role === "Teacher" ? (
                                 <TextField
                                     margin="normal"
                                     required
@@ -185,7 +188,23 @@ const LoginPage = ({ role }) => {
                                     error={emailError}
                                     helperText={emailError && 'Email is required'}
                                     onChange={handleInputChange}
+                                     placeholder='fazlerabbi@uiu.com'
                                 />
+                            )
+                                : ( <TextField
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    id="email"
+                                    label="Enter your email"
+                                    name="email"
+                                    autoComplete="email"
+                                    autoFocus
+                                    error={emailError}
+                                    helperText={emailError && 'Email is required'}
+                                    onChange={handleInputChange}
+                                     placeholder='admin@uiu.com'
+                                    />     
                             )}
                             <TextField
                                 margin="normal"
@@ -199,6 +218,7 @@ const LoginPage = ({ role }) => {
                                 error={passwordError}
                                 helperText={passwordError && 'Password is required'}
                                 onChange={handleInputChange}
+                                placeholder='123456'
                                 InputProps={{
                                     endAdornment: (
                                         <InputAdornment position="end">
@@ -232,14 +252,14 @@ const LoginPage = ({ role }) => {
                                     <CircularProgress size={24} color="inherit" />
                                     : "Login"}
                             </LightPurpleButton>
-                            {/* <Button
+                            <Button
                                 fullWidth
                                 onClick={guestModeHandler}
                                 variant="outlined"
                                 sx={{ mt: 2, mb: 3, color: "#7f56da", borderColor: "#7f56da" }}
                             >
                                 Login as Guest
-                            </Button> */}
+                            </Button>
                             {role === "Admin" &&
                                 <Grid container>
                                     <Grid>

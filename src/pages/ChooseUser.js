@@ -138,7 +138,7 @@ const ChooseUser = ({ visitor }) => {
                   <AccountCircle fontSize="large" />
                 </Box> */}
                 <StyledTypography>
-                <p>ID: uiu@gmail.com</p>
+                <p>ID: admin@uiu.com</p>
                 <p>Password: 123456</p>
                 </StyledTypography>
                <p><span>=</span> Admin can create classes, subjects, teachers, students.</p>
@@ -149,35 +149,38 @@ const ChooseUser = ({ visitor }) => {
             </div>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
+            <div>
           <StyledPaperText elevation={3}>
                 {/* <Box mb={2}>
                   <AccountCircle fontSize="large" />
                 </Box> */}
                 <StyledTypography>
-                <p>ID: rabbi@uiu.com</p>
-                <p>Password: Nothing69</p>
+                <p>ID: fazlerabbi@uiu.com</p>
+                <p>Password: 123456</p>
                 </StyledTypography>
                 <br/>
                <p><span>=</span> Teachers can take attendance and provide examination and class progress marks.</p>
                <p><span>=</span> Teachers can upload study materials i.e video tutorials, the questionnaires, set quizzes  </p>
               
               </StyledPaperText>
+              </div>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
+          <div>
           <StyledPaperText elevation={3}>
                 {/* <Box mb={2}>
                   <AccountCircle fontSize="large" />
                 </Box> */}
                 <StyledTypography>
-                <p>Name: Md Anjan</p>
-                <p>Roll: 2</p>
-                <p>Password: Nothing69</p>
+                <p>Name: Arafat Anjan</p>
+                <p>Roll: 1</p>
+                <p>Password: 123456</p>
                 </StyledTypography>
                <p><span>=</span>Students can attend quizzes, access to notices, video lessons, questionnaires, result card and automatic feedback. </p>
                <p><span>=</span>Students can view attendance and performance comparison in graph format.</p>
                
               </StyledPaperText>
-              
+              </div>
           </Grid>
         </Grid>
         <br />

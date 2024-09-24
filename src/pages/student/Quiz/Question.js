@@ -24,7 +24,7 @@ const Question = () => {
     const [checked, setChecked] = useState(undefined);
     const [timer, setTimer]= useState(time);
     const [parentTimer, setParentTimer]= useState(time);
-    const [navigate, setNavigate] = useState(false);
+    const [autonavigate, setAutonavigate] = useState(false);
     const intervalRef = useRef();
     // const [selectedValue, setSelectedValue] = React.useState('a');
     const [{ isLoading, apiData, serverError}] = useFetchQestion();
@@ -62,7 +62,7 @@ const Question = () => {
     useEffect(() => {
         setParentTimer(timer);
         if (timer === 0) {
-            setNavigate(true);
+            setAutonavigate(true);
         }
     }, [timer]);
 
@@ -158,7 +158,7 @@ useEffect(() => {
         
     /** finished exam after the last question */
    
-     if(navigate || result.length && result.length >= queue.length){
+     if(autonavigate || result.length && result.length >= queue.length){
         //const url = `/Student/quiz/:semester/:year/:course/:category`;
         //navigate(url);
         return (

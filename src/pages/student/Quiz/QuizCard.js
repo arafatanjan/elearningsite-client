@@ -10,6 +10,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { getUserDetails } from '../../../redux/userRelated/userHandle';
 import { getAllSubjectDetails } from '../../../redux/sclassRelated/sclassHandle';
+import './QuizCard.css'
 
 
 const QuizCard = ({quiz}) => {
@@ -22,10 +23,8 @@ const QuizCard = ({quiz}) => {
   const [subjectName, setSubjectName] = useState('');
   const [propertiess, setPropertiess] = useState('');
   
-  //console.log(quiz)
-  
-  
-  
+  console.log(quiz)
+  console.log(currentUser)
 
   useEffect(() => {
     const fetchSubjectNames = async () => {
@@ -54,24 +53,25 @@ const QuizCard = ({quiz}) => {
     if (quiz?.properties?.class?._id === currentUser?.sclassName?._id) {
       const { properties } = quiz;
       setPropertiess(properties);
-      console.log(quiz)
+      console.log(propertiess)
       
     }
   }, [quiz, currentUser]);
 
-  //console.log(propertiess.course);
+  console.log(propertiess.course);
   console.log(subjectsList)
 
   useEffect(() => {
-    if (subjectsList && subjectsList.length > 0) {
-      
+    if (subjectsList && subjectsList.length > 0 && propertiess.course) {
       const matchedSubject = subjectsList.find(subject => subject._id === propertiess.course);
       if (matchedSubject) {
-        setSubjectName(matchedSubject.subName); // Set subjectName if a match is found
+        setSubjectName(matchedSubject.subName);
       }
     }
-  }, [currentUser, subjectsList]);
-
+  }, [subjectsList, propertiess.course, currentUser]);
+  
+  // Render
+  const matchedSubject = subjectsList.find(subject => subject._id === propertiess.course);
   
   
 
@@ -87,31 +87,51 @@ const QuizCard = ({quiz}) => {
 
 
   return (
-    <Grid item xs={12} sm={6} md={3} lg={3}> 
-      <Box mb={2} display="flex" justifyContent="center" width="100%"> {/* Center items horizontally */}
-        <Card elevation={4} style={{ backgroundColor: '#f5fcfc', width: '80%' }}> {/* Adjust maxWidth to control card width */}
-          <CardContent>
-            <Typography variant="subtitle1" color="textSecondary" align="center" fontWeight="600" gutterBottom>
-              {subjectName}
-            </Typography>
-            <Typography variant="subtitle2" color="textSecondary" align="center" fontWeight="700" gutterBottom >
-              {propertiess.category}
-            </Typography>
-          </CardContent>
-          <CardActions style={{ justifyContent: 'center' }}> {/* Center the button within the card */}
-            <Button
-              component={Link}
-              to={`/Student/quiz/${propertiess.course}/${propertiess.category}`}
-              variant="contained"
-              onClick={handleClick}
-              color="primary"
-            >
-              Start
-            </Button>
-          </CardActions>
-        </Card>
-      </Box>
-    </Grid>
+   <>
+   {matchedSubject ? (
+  <Grid item xs={12} sm={6} md={3} lg={3}>
+  <Box mb={2} display="flex" justifyContent="center" width="100%">
+    <Card
+      elevation={6}
+      style={{ 
+        backgroundColor: '#e0f7fa', 
+        width: '80%', 
+        transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+        borderRadius: '12px',
+        overflow: 'hidden'
+      }}
+      className="animated-card"
+    >
+      <CardContent>
+        <Typography variant="subtitle1" color="textPrimary" align="center" fontWeight="600" gutterBottom>
+        <span style={{ color: '#855f54' }}>Course:  </span>
+        {subjectName}
+        </Typography>
+        <Typography variant="subtitle2" color="textSecondary" align="center" fontWeight="700" gutterBottom>
+         <span style={{ color: '#855f54', fontWeight: 'bold' }}>Category:   </span> 
+         {propertiess.category}
+        </Typography>
+      </CardContent>
+      <CardActions style={{ justifyContent: 'center' }}>
+        <Button
+          component={Link}
+          to={`/Student/quiz/${propertiess.course}/${propertiess.category}`}
+          variant="contained"
+          color="primary"
+          className="start-button"
+        >
+          Start
+        </Button>
+      </CardActions>
+    </Card>
+  </Box>
+</Grid>
+) : (
+  <Typography variant="h6" align="center" color="textSecondary">
+    
+  </Typography>
+)}
+   </>
   );
 };
 

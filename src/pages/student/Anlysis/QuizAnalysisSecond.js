@@ -20,8 +20,7 @@ const QuizAnalysisSecond = () => {
       }, []);
     
       const getAllResults = () => {
-        axios
-          .get(`https://elearningsite-server.onrender.com/result`)
+        axios.get(`https://elearningsite-server.onrender.com/result`)
           .then((result) => {
             setResults(result.data);
           })
@@ -35,8 +34,9 @@ const QuizAnalysisSecond = () => {
       
     const nam = results.map(student => student.username);
     //console.log(nam);
-    //const arafatSemester = results.find(student => student.username === currentUser.name)?.property.semester || '';
+    
     const matchingResults = results.filter(student => student.username === currentUser.name);
+    //console.log(matchingResults);
     const arafatSemester = matchingResults.map(student => student.property.semester) || [];
     //console.log(arafatSemester);
 
@@ -65,7 +65,7 @@ const QuizAnalysisSecond = () => {
         //arafatPoints : finalArray.find(student => student.username === currentUser.name)?.points || 0,
       }));
 
-
+      console.log(chartsData)
 
       useEffect(() => {
         const fetchSubjectNames = async () => {
@@ -103,8 +103,8 @@ const QuizAnalysisSecond = () => {
         };
       });
       
-      //console.log(updatedChartsData);
-     
+      const filterupdatedChartsData = updatedChartsData.filter(item => item.name.length > 0);
+      console.log(filterupdatedChartsData);
      
       const pointsForArafat = finalArray.flatMap(subarray => 
         subarray
@@ -119,17 +119,17 @@ const QuizAnalysisSecond = () => {
   
 
 // Configuring Y-axis domain based on the maximum value of 'highest' across all data
-const maxYAxisValue = Math.max(...updatedChartsData.map(chartData => chartData.highest));
+const maxYAxisValue = Math.max(...filterupdatedChartsData.map(chartData => chartData.highest));
 const yAxisDomain = [0, maxYAxisValue + 10]; // Adjusted to provide some padding
 
 //??`${chartData.name[0].course}
 return (
   <div>
-      <h2 className="video-watches-title">Quiz</h2>
+      <h2 className="video-watches-title" style={{marginTop:'10px'}}>Quiz</h2>
       {nam.includes(currentUser.name) ? (
         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
           <ResponsiveContainer width="70%" height={300}>
-            <BarChart data={updatedChartsData} margin={{ top: 20, right: 0, left: 0, bottom: 50 }} barCategoryGap={0} barGap={5}>
+            <BarChart data={filterupdatedChartsData} margin={{ top: 20, right: 0, left: 0, bottom: 50 }} barCategoryGap={0} barGap={5}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis
             dataKey={(chartData) => {
@@ -138,7 +138,7 @@ return (
               }
               return ''; // Return a fallback value if name or name[0] is undefined
             }}
-            tick={{ angle: -8, textAnchor: 'middle', dx: -50 }}
+            tick={{ angle: -3, textAnchor: 'middle', dx: -50 }}
             interval={0}
             tickLine={false}
           />
