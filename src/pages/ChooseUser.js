@@ -221,9 +221,7 @@ export default ChooseUser;
 //height: 85vh;
 
 const StyledContainer = styled.div`
-  background: linear-gradient(to bottom, #411d70, #19118b);
- 
- 
+  background: linear-gradient(to bottom, #d5cae3, #d7bef7);
   margin-bottom: 0px;
   display: flex;
   justify-content: center;
@@ -234,7 +232,7 @@ const StyledPaper = styled(Paper)`
   padding: 20px;
   text-align: center;
   background-color: #1f1f38;
-  color:rgba(255, 255, 255, 0.6);
+  color:rgba(255, 255, 255, 0.9);
   cursor:pointer;
 
   &:hover {
@@ -246,7 +244,7 @@ const StyledPaperText = styled(Paper)`
   padding: 20px;
   text-align: left;
   background-color: #1f1f38;
-  color:rgba(255, 255, 255, 0.6);
+  color:rgba(255, 255, 255, 0.9);
   }
 `;
 
