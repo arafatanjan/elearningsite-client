@@ -150,7 +150,7 @@ const StudentHomePage = () => {
                 </Grid>
                 
             </Container>
-            <AllRights/>
+          
             
         </>
         

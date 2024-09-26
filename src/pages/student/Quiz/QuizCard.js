@@ -24,7 +24,7 @@ const QuizCard = ({quiz}) => {
   const [propertiess, setPropertiess] = useState('');
   
   console.log(quiz)
-  console.log(currentUser)
+  //console.log(currentUser)
 
   useEffect(() => {
     const fetchSubjectNames = async () => {
@@ -53,13 +53,13 @@ const QuizCard = ({quiz}) => {
     if (quiz?.properties?.class?._id === currentUser?.sclassName?._id) {
       const { properties } = quiz;
       setPropertiess(properties);
-      console.log(propertiess)
+      //console.log(propertiess)
       
     }
   }, [quiz, currentUser]);
 
-  console.log(propertiess.course);
-  console.log(subjectsList)
+  //console.log(propertiess.course);
+  //console.log(subjectsList)
 
   useEffect(() => {
     if (subjectsList && subjectsList.length > 0 && propertiess.course) {
@@ -87,51 +87,50 @@ const QuizCard = ({quiz}) => {
 
 
   return (
-   <>
-   {matchedSubject ? (
-  <Grid item xs={12} sm={6} md={3} lg={3}>
-  <Box mb={2} display="flex" justifyContent="center" width="100%">
-    <Card
-      elevation={6}
-      style={{ 
-        backgroundColor: '#e0f7fa', 
-        width: '80%', 
-        transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-        borderRadius: '12px',
-        overflow: 'hidden'
-      }}
-      className="animated-card"
-    >
-      <CardContent>
-        <Typography variant="subtitle1" color="textPrimary" align="center" fontWeight="600" gutterBottom>
-        <span style={{ color: '#855f54' }}>Course:  </span>
-        {subjectName}
-        </Typography>
-        <Typography variant="subtitle2" color="textSecondary" align="center" fontWeight="700" gutterBottom>
-         <span style={{ color: '#855f54', fontWeight: 'bold' }}>Category:   </span> 
-         {propertiess.category}
-        </Typography>
-      </CardContent>
-      <CardActions style={{ justifyContent: 'center' }}>
-        <Button
-          component={Link}
-          to={`/Student/quiz/${propertiess.course}/${propertiess.category}`}
-          variant="contained"
-          color="primary"
-          className="start-button"
-        >
-          Start
-        </Button>
-      </CardActions>
-    </Card>
-  </Box>
-</Grid>
-) : (
-  <Typography variant="h6" align="center" color="textSecondary">
-    
-  </Typography>
-)}
-   </>
+    <>
+    {matchedSubject ? (
+      <Grid item xs={12} sm={6} md={3} lg={3}>
+        <Box mb={2} display="flex" justifyContent="center" width="100%">
+          <Card
+            elevation={6}
+            style={{
+              backgroundColor: '#fafafa',
+              width: '80%',
+              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+              borderRadius: '15px',
+              overflow: 'hidden',
+            }}
+            className="animated-card"
+          >
+            <CardContent>
+              <Typography variant="subtitle1" color="textPrimary" align="center" fontWeight="600" gutterBottom>
+                <span style={{ color: '#6d4c41', fontWeight: 'bold' }}>Course: </span>{subjectName}
+              </Typography>
+              <Typography variant="subtitle2" color="textSecondary" align="center" fontWeight="700" gutterBottom>
+                <span style={{ color: '#6d4c41', fontWeight: 'bold' }}>Category: </span>{propertiess.category}
+              </Typography>
+            </CardContent>
+            <CardActions style={{ justifyContent: 'center' }}>
+              <Button
+                component={Link}
+                to={`/Student/quiz/${propertiess.course}/${propertiess.category}`}
+                variant="contained"
+                color="secondary"
+                className="start-button"
+                style={{ transition: 'background-color 0.3s ease' }}
+              >
+                Start
+              </Button>
+            </CardActions>
+          </Card>
+        </Box>
+      </Grid>
+    ) : (
+      <Typography variant="h6" align="center" color="textSecondary">
+        
+      </Typography>
+    )}
+  </>
   );
 };
 

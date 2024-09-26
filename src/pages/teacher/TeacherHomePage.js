@@ -73,7 +73,7 @@ const TeacherHomePage = () => {
                         </Paper>
                     </Grid>
                 </Grid>
-                <AllRights/>
+               
             </Container>
         </>
     )

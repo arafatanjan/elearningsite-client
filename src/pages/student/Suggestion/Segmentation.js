@@ -14,7 +14,7 @@ const dispatch = useDispatch();
 const [data, setData] = useState([])
 const { userDetails, currentUser, loading, response, error } = useSelector((state) => state.user);
 const { subjectDetails, subjectsList } = useSelector((state) => state.sclass);
-//console.log(currentUser)
+console.log(currentUser.sclassName._id)
 const [studentID, setStudentID] = useState("");
 const [singleStdData, setSingleStdData] = useState(null);
 const [dataSet, setDataSet] = useState(null);
@@ -31,7 +31,7 @@ useEffect(() => {
         const response = await axios.get(`https://elearningsite-server.onrender.com/Student/suggestion/${currentUser.sclassName._id}`);
         const data = response.data;
         setDataSet(data)
-        //console.log('Data:', data);
+        console.log('Data:', data);
         // Find the student data based on currentUser._id
         //const foundStudent = data.filter(student => student.Student_id === currentUser._id);
         const averageStudent = data.filter(student => student.Student_id === currentUser._id);

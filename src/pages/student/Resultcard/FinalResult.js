@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { getAllSubjectDetails } from '../../../redux/sclassRelated/sclassHandle';
 //import AreaField from '@mui/material/TextField';
-import { Card, CardContent, Typography } from '@mui/material';
-import { styled } from '@mui/system'; // Import styled from @mui/system
+import { Card, CardContent, Typography, Stack } from '@mui/material';
+import { styled } from '@mui/system'; // 
+import Classroom from "../../../assets/grading.jpeg";
 
 
 const FinalResult = () => {
@@ -30,135 +31,17 @@ useEffect(() => {
         const response = await axios.get(`https://elearningsite-server.onrender.com/Student/suggestion/${currentUser.sclassName._id}`);
         const data = response.data;
         setDataSet(data)
-        ////console.log('Data:', data);
-        // Find the student data based on currentUser._id
-        //const foundStudent = data.filter(student => student.Student_id === currentUser._id);
-        //const averageStudent = data.filter(student => student.Student_id === currentUser._id);
-        ////console.log('foundStudent:', foundStudent);
-        // Update the state with the found student data
-        
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
-    // Call fetchData when currentUser._id or currentUser.sclassName._id changes
     fetchData();
   }, [currentUser._id, currentUser.sclassName._id]);
 //console.log(dataSet)
 
-const dataa=[
-    {
-      "_id": "662bf5b7f20271fabd675252",
-      "Student_id": "653566902d54c8f8058ab3e9",
-      "name": "arafat",
-      "rollNum": 2,
-      "school": "6535658d2d54c8f8058ab3a8",
-      "teachSubject_id": "653566402d54c8f8058ab3ca",
-      "teachSubject_subName": "Bangla",
-      "sclassName": "653566192d54c8f8058ab3be",
-      "examResult": [
-        {
-          "subName": "653566402d54c8f8058ab3ca",
-          "marksObtained": 11.25,
-          "examNewMarks": 60,
-          "marksProgress": 10,
-          "progressNewMarks": 20,
-          "QuizAvg": 26.67,
-          "quizNewMarks": 10,
-          "_id": "6535672b2d54c8f8058ab432"
-        }
-      ],
-      "attendancePercentage": 6.25,
-      "attendanceNewMarks": 10,
-      "createdAt": "2024-04-26T18:43:03.190Z",
-      "updatedAt": "2024-04-26T18:43:03.190Z",
-      "__v": 0
-    },
-    {
-      "_id": "662bf5b7f20271fabd675256",
-      "Student_id": "653567cf2d54c8f8058ab46f",
-      "name": "anju",
-      "rollNum": 3,
-      "school": "6535658d2d54c8f8058ab3a8",
-      "teachSubject_id": "653566402d54c8f8058ab3ca",
-      "teachSubject_subName": "Bangla",
-      "sclassName": "653566192d54c8f8058ab3be",
-      "examResult": [
-        {
-          "subName": "653566402d54c8f8058ab3ca",
-          "marksObtained": 66,
-          "examNewMarks": 60,
-          "marksProgress": 13.33,
-          "progressNewMarks": 20,
-          "QuizAvg": 30,
-          "quizNewMarks": 10,
-          "_id": "6535684f2d54c8f8058ab4c3"
-        }
-      ],
-      "attendancePercentage": 7.5,
-      "attendanceNewMarks": 10,
-      "createdAt": "2024-04-26T18:43:03.830Z",
-      "updatedAt": "2024-04-26T18:43:03.830Z",
-      "__v": 0
-    },
-    {
-      "_id": "662bf644f20271fabd67528d",
-      "Student_id": "653566902d54c8f8058ab3e9",
-      "name": "arafat",
-      "rollNum": 2,
-      "school": "6535658d2d54c8f8058ab3a8",
-      "teachSubject_id": "6535687a2d54c8f8058ab4e4",
-      "teachSubject_subName": "English",
-      "sclassName": "653566192d54c8f8058ab3be",
-      "examResult": [
-        {
-          "subName": "6535687a2d54c8f8058ab4e4",
-          "marksObtained": 48.75,
-          "examNewMarks": 60,
-          "marksProgress": 13.33,
-          "progressNewMarks": 20,
-          "QuizAvg": 2.83,
-          "quizNewMarks": 10,
-          "_id": "6535689e2d54c8f8058ab52d"
-        }
-      ],
-      "attendancePercentage": 6.25,
-      "attendanceNewMarks": 10,
-      "createdAt": "2024-04-26T18:45:24.725Z",
-      "updatedAt": "2024-04-26T18:45:24.725Z",
-      "__v": 0
-    },
-    {
-      "_id": "662bf645f20271fabd675291",
-      "Student_id": "653567cf2d54c8f8058ab46f",
-      "name": "anju",
-      "rollNum": 3,
-      "school": "6535658d2d54c8f8058ab3a8",
-      "teachSubject_id": "6535687a2d54c8f8058ab4e4",
-      "teachSubject_subName": "English",
-      "sclassName": "653566192d54c8f8058ab3be",
-      "examResult": [
-        {
-          "subName": "6535687a2d54c8f8058ab4e4",
-          "marksObtained": 60,
-          "examNewMarks": 60,
-          "marksProgress": 10,
-          "progressNewMarks": 20,
-          "QuizAvg": 2,
-          "quizNewMarks": 10,
-          "_id": "653568b02d54c8f8058ab557"
-        }
-      ],
-      "attendancePercentage": 7.5,
-      "attendanceNewMarks": 10,
-      "createdAt": "2024-04-26T18:45:25.361Z",
-      "updatedAt": "2024-04-26T18:45:25.361Z",
-      "__v": 0
-    }
-  ];
 
-const groupedData = dataa?.reduce((acc, student) => {
+const groupedData = dataSet?.reduce((acc, student) => {
     const examResults = student.examResult || [];
     if (examResults && examResults.length > 0) {
       // Assuming each student can have multiple examResult entries
@@ -398,7 +281,17 @@ totalMarksArray.forEach(item => {
         </CardContent>
       )}
     </Card>   
-
+    <Stack sx={{
+                        alignItems: 'center',
+                        mb: 3,
+                        mt: 3
+                    }}>
+                        <img
+                            src={Classroom}
+                            alt="classroom"
+                            style={{ width: '50%' }}
+                        />
+                    </Stack>
             
         </div>
     );

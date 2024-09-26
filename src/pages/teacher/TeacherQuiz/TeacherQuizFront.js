@@ -64,7 +64,7 @@ const TeacherQuizFront = () => {
             </Grid>
          </Grid>
       </Container>
-            <AllRights/>
+            
             
         </>
     );

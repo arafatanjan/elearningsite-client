@@ -43,7 +43,7 @@ const TeacherQuestion = () => {
                     </Grid>
                     </Grid>
                     </Container>
-            <AllRights/>
+          
             
         </>
         </div>

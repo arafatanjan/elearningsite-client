@@ -51,7 +51,7 @@ const TeacherSideBar = () => {
                     <ListItemIcon>
                         <ClassOutlinedIcon color={location.pathname.startsWith("/Teacher/questions") ? 'primary' : 'inherit'} />
                     </ListItemIcon>
-                    <ListItemText primary="Questions" />
+                    <ListItemText primary="QuestionBank" />
                 </ListItemButton>
                 {/* <ListItemButton component={Link} to="/Teacher/complain">
                     <ListItemIcon>

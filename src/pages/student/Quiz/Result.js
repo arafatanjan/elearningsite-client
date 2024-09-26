@@ -28,6 +28,7 @@ const Result = () => {
       const [studentID, setStudentID] = useState("");
       const [showQuizMarks, setShowQuizMarks] = useState(false); // State to control visibility of StudentQuizMarks
       const navigate = useNavigate();
+      console.log(result)
 
       useEffect(() => { 
         setStudentID(currentUser._id);   

@@ -79,7 +79,7 @@ const Quiz = () => {
         
      
 
-    /** finished exam after the last question */
+    
    
      if(result.length && result.length >= queue.length){
         //const url = `/Student/quiz/:semester/:year/:course/:category`;

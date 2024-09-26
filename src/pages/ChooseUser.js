@@ -194,6 +194,12 @@ const ChooseUser = ({ visitor }) => {
         
       </StyledText>
       </div>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      
       </Container>
       
       <Backdrop
@@ -205,16 +211,20 @@ const ChooseUser = ({ visitor }) => {
       </Backdrop>
       <Popup message={message} setShowPopup={setShowPopup} showPopup={showPopup} />
     </StyledContainer>
-    <AllRights/>
+    
     </>
   );
 };
 
 export default ChooseUser;
 
+//height: 85vh;
+
 const StyledContainer = styled.div`
   background: linear-gradient(to bottom, #411d70, #19118b);
-  height: 120vh;
+ 
+ 
+  margin-bottom: 0px;
   display: flex;
   justify-content: center;
   padding: 2rem;

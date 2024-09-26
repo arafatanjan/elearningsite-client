@@ -78,7 +78,7 @@ const AdminHomePage = () => {
                         </Paper>
                     </Grid>
                 </Grid>
-                <AllRights/>
+               
             </Container>
         </>
     );

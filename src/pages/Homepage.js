@@ -26,7 +26,7 @@ const Homepage = () => {
       </StyledText>
       </StyledBox>
       </StyledPaper>
-      <AllRights/>
+    
     </StyledContainer>
   );
 };

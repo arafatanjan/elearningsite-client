@@ -15,7 +15,7 @@ const QuizAnalysisSixth = () => {
     const [subjectID, setsubjectID] = useState();
     //??const [subjectNames, setSubjectNames] = useState('');
     const [subjectNames, setSubjectNames] = useState([]);
-    //console.log(currentUser.school._id)
+    //console.log( userDetails.examResult)
     
 
     useEffect(() => {
@@ -92,7 +92,7 @@ const QuizAnalysisSixth = () => {
         
             return {
               subject: subjectData.subject,
-              firstStudentMarks,
+              YourMarks: firstStudentMarks,
               highestMarks,
               averageMarks,
             };
@@ -120,33 +120,64 @@ const QuizAnalysisSixth = () => {
 
 
 // Map over chartData and update subject with subName based on _id match
-const updatedChartsData = chartData.map(data => { const matchingSubject = subjectsList.find(subject => subject._id === data.subject);
+// const updatedChartsData = chartData.map(data => { const matchingSubject = subjectsList.find(subject => subject._id === data.subject);
 
-  if (matchingSubject) {
-    return {
-      ...data,
-      subject: matchingSubject.subName // Replace subject ID with subName
-    };
-  } else {
-    return data; // No match found, keep original data
-  }
-});
+//   const updatedChartsData = chartData.map(data => {
+//     const matchingSubject = subjectsList.find(subject => subject._id === data.subject);
+//     // Perform operations if needed
+//     return { ...data, matchingSubject }; // Example of updating the data object
+//   });
+
+
+//   const filteredChartsData = updatedChartsData.filter(data => 
+//     userDetails.examResult.some(result => result.subName.id === data.subject)
+//   );
+  
+  // Handle data mapping
+  // const updatedData = updatedChartsData.map(data => {
+  //   const matchingSubject = subjectsList.find(subject => subject._id === data.subject);
+  //   if (matchingSubject) {
+  //     return {
+  //       ...data,
+  //       subject: matchingSubject.subName // Replace subject ID with subName
+  //     };
+  //   } else {
+  //     return data; // No match found, keep original data
+  //   }
+  // });
+  const updatedChartsData = chartData.map(data => { const matchingSubject = subjectsList.find(subject => subject._id === data.subject);
+
+    if (matchingSubject) {
+      return {
+        ...data,
+        subject: matchingSubject.subName // Replace subject ID with subName
+      };
+    } else {
+      return data; // No match found, keep original data
+    }
+  });
+
+  const filteredChartsData = updatedChartsData.filter(data => 
+    userDetails.examResult.some(result => result.subName.subName === data.subject)
+  );
+  //console.log(filteredChartsData); 
+ 
 
     return (
-        <div>
-            <h2 className="video-watches-title">Semester Final Marks</h2>
-        <ResponsiveContainer width="50%" height={250}>
-      <BarChart data={updatedChartsData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="subject" />
-        <YAxis domain={[0, 100]}/>
-        <Tooltip />
-        <Legend />
-        <Bar dataKey="firstStudentMarks" fill="#8884d8" name={`${a}`} barSize={40}/>
-        <Bar dataKey="highestMarks" fill="#82ca9d" name="Highes" barSize={40}/>
-        <Bar dataKey="averageMarks" fill="#ffc658" name="Average" barSize={40}/>
-      </BarChart>
-    </ResponsiveContainer>
+      <div>
+      <h2 className="video-watches-title">Semester Final Marks</h2>
+      <ResponsiveContainer width="50%" height={200}>
+        <BarChart data={ filteredChartsData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="subject" />
+          <YAxis domain={[0, 100]} />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="YourMarks" fill="#8884d8" barSize={40} />
+          <Bar dataKey="highestMarks" fill="#82ca9d" barSize={40} />
+          <Bar dataKey="averageMarks" fill="#ffc658" barSize={40} />
+        </BarChart>
+      </ResponsiveContainer>
     </div>
     );
 };

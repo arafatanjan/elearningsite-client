@@ -16,9 +16,9 @@ const AllRights = () => {
 
       <Box
         sx={{
-          marginTop: 'auto', // Push the content to the top
+          marginTop: '0px', // Push the content to the top
           backgroundColor: '#f5f5f5', // Add a background color if needed
-          padding: '10px', // Add padding for better visibility
+          padding: '0px', // Add padding for better visibility
           textAlign: 'center', // Center the text
         }}
       >

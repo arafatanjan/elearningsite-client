@@ -104,7 +104,7 @@ const QuizAnalysisSixth = () => {
         
             return {
               subject: subjectData.subject,
-              firstStudentMarks,
+              YourMarks: firstStudentMarks,
               highestMarks,
               averageMarks,
             };
@@ -142,23 +142,27 @@ const updatedChartsData = chartData.map(data => {
   }
 });
 
+const filteredChartsData = updatedChartsData.filter(data => 
+  userDetails.examResult.some(result => result.subName.subName === data.subject)
+);
+
 //console.log(updatedChartsData);
 
     return (
         <div>
             <h2 className="video-watches-title">Class Progress Marks</h2>
-        <ResponsiveContainer width="50%" height={250}>
-      <BarChart data={updatedChartsData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="subject" />
-        <YAxis domain={[0, 30]}/>
-        <Tooltip />
-        <Legend />
-        <Bar dataKey="firstStudentMarks" fill="#8884d8" name={`${a}`} barSize={40}/>
-        <Bar dataKey="highestMarks" fill="#82ca9d" name="Highest" barSize={40}/>
-        <Bar dataKey="averageMarks" fill="#ffc658" name="Average" barSize={40}/>
-      </BarChart>
-    </ResponsiveContainer>
+            <ResponsiveContainer width="50%" height={200}>
+        <BarChart data={ filteredChartsData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="subject" />
+          <YAxis domain={[0, 10]} />
+          <Tooltip />
+          <Legend />
+          <Bar dataKey="YourMarks" fill="#8884d8" barSize={40} />
+          <Bar dataKey="highestMarks" fill="#82ca9d" barSize={40} />
+          <Bar dataKey="averageMarks" fill="#ffc658" barSize={40} />
+        </BarChart>
+      </ResponsiveContainer>
     </div>
     );
 };

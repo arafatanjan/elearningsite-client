@@ -104,7 +104,7 @@ const QuizAnalysisSecond = () => {
       });
       
       const filterupdatedChartsData = updatedChartsData.filter(item => item.name.length > 0);
-      console.log(filterupdatedChartsData);
+      //console.log(filterupdatedChartsData);
      
       const pointsForArafat = finalArray.flatMap(subarray => 
         subarray
