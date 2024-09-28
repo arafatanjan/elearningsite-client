@@ -15,6 +15,7 @@ import { loginUser } from '../redux/userRelated/userHandle';
 import Popup from '../components/Popup';
 import { Link } from "react-router-dom";
 import AllRights from "../components/AllRights";
+import backgroundImage from '../../src/assets/backg.jpg';
 
 const ChooseUser = ({ visitor }) => {
   const dispatch = useDispatch()
@@ -86,6 +87,7 @@ const ChooseUser = ({ visitor }) => {
 
   return (
     <>
+    
     <StyledContainer>
       <Container>
         <Grid container spacing={2} justifyContent="center">
@@ -194,11 +196,7 @@ const ChooseUser = ({ visitor }) => {
         
       </StyledText>
       </div>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
+     
       
       </Container>
       
@@ -221,31 +219,32 @@ export default ChooseUser;
 //height: 85vh;
 
 const StyledContainer = styled.div`
-  background: linear-gradient(to bottom, #d5cae3, #d7bef7);
-  margin-bottom: 0px;
+  // background: linear-gradient(to bottom, #d5cae3, #d7bef7);
+  margin-left: -30px ;
   display: flex;
   justify-content: center;
   padding: 2rem;
+  background: url(${backgroundImage}); 
 `;
 
 const StyledPaper = styled(Paper)`
   padding: 20px;
   text-align: center;
   background-color: #1f1f38;
-  color:rgba(255, 255, 255, 0.9);
-  cursor:pointer;
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
 
   &:hover {
     background-color: #2c2c6c;
-    color:white;
+    color: white;
   }
 `;
+
 const StyledPaperText = styled(Paper)`
   padding: 20px;
   text-align: left;
   background-color: #1f1f38;
-  color:rgba(255, 255, 255, 0.9);
-  }
+  color: rgba(255, 255, 255, 0.9);
 `;
 
 const StyledTypography = styled.h2`
@@ -253,9 +252,7 @@ const StyledTypography = styled.h2`
 `;
 
 const StyledText = styled.span`
-  /* color: #550080; */
   background-color: #f5f5f5;
-   
   margin-top: 30px;
   margin-bottom: 30px;
   letter-spacing: normal;
