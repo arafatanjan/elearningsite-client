@@ -220,6 +220,7 @@ export default ChooseUser;
 
 const StyledContainer = styled.div`
   // background: linear-gradient(to bottom, #d5cae3, #d7bef7);
+  height: 88vh;
   margin-left: -30px ;
   display: flex;
   justify-content: center;
