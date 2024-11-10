@@ -71,7 +71,7 @@ const TeacherUploadForm = ({ getAllMedias }) => {
 
   return (
     <>
-    <Container component="main" maxWidth="xs">
+    <Container  >
       <Typography variant="h5" align="center" gutterBottom>
         Upload Media
       </Typography>
@@ -135,7 +135,7 @@ const TeacherUploadForm = ({ getAllMedias }) => {
       <br/>
       <br/>
       <br/>
-      <>
+      
       <Container>
                 <Typography variant="h4" align="center" gutterBottom>
                     Uploaded Videos
@@ -165,7 +165,7 @@ const TeacherUploadForm = ({ getAllMedias }) => {
                     </TableBody>
                 </Table>
                 </Container>
-            </>
+            
     </>
   );
 };

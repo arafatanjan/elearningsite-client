@@ -51,7 +51,7 @@ const TeacherSideBar = () => {
                     <ListItemIcon>
                         <ClassOutlinedIcon color={location.pathname.startsWith("/Teacher/questions") ? 'primary' : 'inherit'} />
                     </ListItemIcon>
-                    <ListItemText primary="QuestionBank" />
+                    <ListItemText primary="Notes/QuestionBank" />
                 </ListItemButton>
                 {/* <ListItemButton component={Link} to="/Teacher/complain">
                     <ListItemIcon>
@@ -63,7 +63,7 @@ const TeacherSideBar = () => {
                     <ListItemIcon>
                         <AnnouncementOutlinedIcon color={location.pathname.startsWith("/Teacher/class/evaluationform") ? 'primary' : 'inherit'} />
                     </ListItemIcon>
-                    <ListItemText primary="Evaluation Form" />
+                    <ListItemText primary="Distribution Form" />
                 </ListItemButton>
             </React.Fragment>
             <Divider sx={{ my: 1 }} />
