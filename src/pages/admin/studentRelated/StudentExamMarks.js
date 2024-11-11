@@ -113,11 +113,14 @@ const StudentExamMarks = ({ situation }) => {
                             }}
                         >
                             <Stack spacing={1} sx={{ mb: 3 }}>
-                                <Typography variant="h4">
+                                <Typography variant="h5">
+                                    Sementer Marks
+                                </Typography>
+                                <Typography variant="h5">
                                     Student Name: {userDetails.name}
                                 </Typography>
                                 {currentUser.teachSubject &&
-                                    <Typography variant="h4">
+                                    <Typography variant="h5">
                                         Subject Name: {currentUser.teachSubject?.subName}
                                     </Typography>
                                 }
